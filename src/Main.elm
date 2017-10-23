@@ -21,12 +21,16 @@ main =
 type alias Model =
     { history : List (Maybe Route)
     , currentRoute : Maybe Route
+    , mdl : Material.Model -- Boilerplate
     }
 
 init : Navigation.Location -> (Model, Cmd Msg)
 init location =
-    ( Model [ Url.parseHash route location ] (Just Home)
-    , Cmd.none
+    (   { history = [ Url.parseHash route location ]
+        , currentRoute = (Just Home)
+        , mdl = Material.model -- Boilerplate
+        }
+    , Material.init Mdl -- Boilerplate
     )
 
 type Route
@@ -108,6 +112,7 @@ notFoundView =
 
 type Msg
     = UrlChange Navigation.Location
+    | Mdl (Material.Msg Msg) -- Boilerplate
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -122,7 +127,10 @@ update msg model =
                     , history = nextRoute :: model.history
                 }
                     ! []
+        Mdl message_ ->
+            Material.update Mdl message_ model
 
 -- subscriptions
 subscriptions : Model -> Sub Msg
-subscriptions model = Sub.none
+subscriptions model =
+    Sub.batch [ Material.subscriptions Mdl model ]
