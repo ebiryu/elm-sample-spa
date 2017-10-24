@@ -3,7 +3,9 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Material
+import Material.Color as Color
 import Material.Layout as L
+import Material.Scheme as Scheme
 import Navigation
 import UrlParser as Url
 
@@ -33,7 +35,7 @@ init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     ( { history = [ Url.parseHash route location ]
       , currentRoute = Just Home
-      , mdl = Material.model -- Boilerplate
+      , mdl = L.setTabsWidth 2124 Material.model
       }
     , Material.init Mdl
       -- Boilerplate
@@ -61,27 +63,47 @@ route =
 -- view
 
 
-view : Model -> Html msg
+view : Model -> Html Msg
 view model =
-    div []
-        [ h1 [] [ text "Pages" ]
-        , ul [] (List.map viewLink [ "birds", "cats", "dogs" ])
-        , case model.currentRoute of
-            Just Home ->
-                homeView model
+    L.render Mdl
+        model.mdl
+        []
+        { header = header model
+        , drawer = []
+        , tabs = ( [], [] )
+        , main = mainView model
+        }
+        |> (\contents ->
+                div []
+                    [ Scheme.topWithScheme Color.Blue Color.Amber contents ]
+           )
 
-            Just Birds ->
-                animalView "birds" "have wings and a beak"
 
-            Just Cats ->
-                animalView "cats" ""
+header : Model -> List (Html msg)
+header model =
+    [ L.title [] [ text "elm-sample-spa" ] ]
 
-            Just Dogs ->
-                animalView "dogs" ""
 
-            Nothing ->
-                notFoundView
-        ]
+mainView : Model -> List (Html msg)
+mainView model =
+    [ h1 [] [ text "Pages" ]
+    , ul [] (List.map viewLink [ "birds", "cats", "dogs" ])
+    , case model.currentRoute of
+        Just Home ->
+            homeView model
+
+        Just Birds ->
+            animalView "birds" "have wings and a beak"
+
+        Just Cats ->
+            animalView "cats" ""
+
+        Just Dogs ->
+            animalView "dogs" ""
+
+        Nothing ->
+            notFoundView
+    ]
 
 
 homeView : Model -> Html msg
