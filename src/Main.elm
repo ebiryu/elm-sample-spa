@@ -2,10 +2,11 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Navigation
-import UrlParser as Url
 import Material
 import Material.Layout as L
+import Navigation
+import UrlParser as Url
+
 
 main : Program Never Model Msg
 main =
@@ -16,7 +17,10 @@ main =
         , subscriptions = subscriptions
         }
 
+
+
 -- model
+
 
 type alias Model =
     { history : List (Maybe Route)
@@ -24,20 +28,24 @@ type alias Model =
     , mdl : Material.Model -- Boilerplate
     }
 
-init : Navigation.Location -> (Model, Cmd Msg)
+
+init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
-    (   { history = [ Url.parseHash route location ]
-        , currentRoute = (Just Home)
-        , mdl = Material.model -- Boilerplate
-        }
-    , Material.init Mdl -- Boilerplate
+    ( { history = [ Url.parseHash route location ]
+      , currentRoute = Just Home
+      , mdl = Material.model -- Boilerplate
+      }
+    , Material.init Mdl
+      -- Boilerplate
     )
+
 
 type Route
     = Home
     | Birds
     | Cats
     | Dogs
+
 
 route : Url.Parser (Route -> a) a
 route =
@@ -48,7 +56,10 @@ route =
         , Url.map Dogs (Url.s "dogs")
         ]
 
+
+
 -- view
+
 
 view : Model -> Html msg
 view model =
@@ -72,6 +83,7 @@ view model =
                 notFoundView
         ]
 
+
 homeView : Model -> Html msg
 homeView model =
     div []
@@ -79,17 +91,21 @@ homeView model =
         , ul [] (List.map viewRoute model.history)
         ]
 
+
 viewRoute : Maybe Route -> Html msg
 viewRoute maybeRoute =
     case maybeRoute of
         Nothing ->
             li [] [ text "Invalid URL" ]
+
         Just route ->
             li [] [ text (toString route) ]
+
 
 viewLink : String -> Html msg
 viewLink name =
     li [] [ a [ href ("#" ++ name) ] [ text name ] ]
+
 
 animalView : String -> String -> Html msg
 animalView name description =
@@ -97,10 +113,11 @@ animalView name description =
         animalDescription =
             name ++ " " ++ description
     in
-        div []
-            [ p [] [ a [ href "#" ] [ text "Back to index" ] ]
-            , h1 [] [ text animalDescription ]
-            ]
+    div []
+        [ p [] [ a [ href "#" ] [ text "Back to index" ] ]
+        , h1 [] [ text animalDescription ]
+        ]
+
 
 notFoundView : Html msg
 notFoundView =
@@ -108,11 +125,15 @@ notFoundView =
         [ h1 [] [ text "Not found :(" ]
         ]
 
+
+
 -- update
+
 
 type Msg
     = UrlChange Navigation.Location
     | Mdl (Material.Msg Msg) -- Boilerplate
+
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -122,15 +143,20 @@ update msg model =
                 nextRoute =
                     Url.parseHash route location
             in
-                { model
-                    | currentRoute = nextRoute
-                    , history = nextRoute :: model.history
-                }
-                    ! []
+            { model
+                | currentRoute = nextRoute
+                , history = nextRoute :: model.history
+            }
+                ! []
+
         Mdl message_ ->
             Material.update Mdl message_ model
 
+
+
 -- subscriptions
+
+
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch [ Material.subscriptions Mdl model ]
