@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Material
 import Material.Color as Color
-import Material.Layout as L
+import Material.Layout as Layout
 import Material.Scheme as Scheme
 import Navigation
 import UrlParser as Url
@@ -35,7 +35,7 @@ init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     ( { history = [ Url.parseHash route location ]
       , currentRoute = Just Home
-      , mdl = L.setTabsWidth 2124 Material.model
+      , mdl = Layout.setTabsWidth 2124 Material.model
       }
     , Material.init Mdl
       -- Boilerplate
@@ -65,7 +65,7 @@ route =
 
 view : Model -> Html Msg
 view model =
-    L.render Mdl
+    Layout.render Mdl
         model.mdl
         []
         { header = header model
@@ -81,7 +81,7 @@ view model =
 
 header : Model -> List (Html msg)
 header model =
-    [ L.title [] [ text "elm-sample-spa" ] ]
+    [ Layout.title [] [ text "elm-sample-spa" ] ]
 
 
 mainView : Model -> List (Html msg)
