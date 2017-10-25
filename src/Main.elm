@@ -81,7 +81,10 @@ view model =
 
 header : Model -> List (Html msg)
 header model =
-    [ Layout.title [] [ text "elm-sample-spa" ] ]
+    [ Layout.row
+        []
+        [ Layout.title [] [ text "elm-sample-spa" ] ]
+    ]
 
 
 mainView : Model -> List (Html msg)
