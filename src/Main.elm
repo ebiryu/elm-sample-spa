@@ -2,10 +2,6 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Material
-import Material.Color as Color
-import Material.Layout as Layout
-import Material.Scheme as Scheme
 import Navigation
 import UrlParser as Url
 
@@ -27,19 +23,15 @@ main =
 type alias Model =
     { history : List (Maybe Route)
     , currentRoute : Maybe Route
-    , mdl : Material.Model -- Boilerplate
     }
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
-    ( { history = [ Url.parseHash route location ]
-      , currentRoute = Just Home
-      , mdl = Layout.setTabsWidth 2124 Material.model
-      }
-    , Material.init Mdl
-      -- Boilerplate
-    )
+    { history = [ Url.parseHash route location ]
+    , currentRoute = Just Home
+    }
+        ! []
 
 
 type Route
@@ -65,31 +57,18 @@ route =
 
 view : Model -> Html Msg
 view model =
-    Layout.render Mdl
-        model.mdl
-        []
-        { header = header model
-        , drawer = []
-        , tabs = ( [], [] )
-        , main = mainView model
-        }
-        |> (\contents ->
-                div []
-                    [ Scheme.topWithScheme Color.Blue Color.Amber contents ]
-           )
+    List.head (mainView model)
+        |> Maybe.withDefault (div [] [])
 
 
 header : Model -> List (Html msg)
 header model =
-    [ Layout.row
-        []
-        [ Layout.title [] [ text "elm-sample-spa" ] ]
-    ]
+    [ h1 [] [ text "elm-sample-spa" ] ]
 
 
 mainView : Model -> List (Html msg)
 mainView model =
-    [ div boxed
+    [ div [ class "boxed" ]
         [ h1 [] [ text "Pages" ]
         , ul [] (List.map viewLink [ "birds", "cats", "dogs" ])
         , case model.currentRoute of
@@ -153,23 +132,12 @@ notFoundView =
         ]
 
 
-boxed : List (Attribute msg)
-boxed =
-    [ style
-        [ ( "margin", "auto" )
-        , ( "padding-left", "8%" )
-        , ( "padding-right", "8%" )
-        ]
-    ]
-
-
 
 -- update
 
 
 type Msg
     = UrlChange Navigation.Location
-    | Mdl (Material.Msg Msg) -- Boilerplate
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -186,9 +154,6 @@ update msg model =
             }
                 ! []
 
-        Mdl message_ ->
-            Material.update Mdl message_ model
-
 
 
 -- subscriptions
@@ -196,4 +161,4 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch [ Material.subscriptions Mdl model ]
+    Sub.none
