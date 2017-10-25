@@ -89,23 +89,25 @@ header model =
 
 mainView : Model -> List (Html msg)
 mainView model =
-    [ h1 [] [ text "Pages" ]
-    , ul [] (List.map viewLink [ "birds", "cats", "dogs" ])
-    , case model.currentRoute of
-        Just Home ->
-            homeView model
+    [ div boxed
+        [ h1 [] [ text "Pages" ]
+        , ul [] (List.map viewLink [ "birds", "cats", "dogs" ])
+        , case model.currentRoute of
+            Just Home ->
+                homeView model
 
-        Just Birds ->
-            animalView "birds" "have wings and a beak"
+            Just Birds ->
+                animalView "birds" "have wings and a beak"
 
-        Just Cats ->
-            animalView "cats" ""
+            Just Cats ->
+                animalView "cats" ""
 
-        Just Dogs ->
-            animalView "dogs" ""
+            Just Dogs ->
+                animalView "dogs" ""
 
-        Nothing ->
-            notFoundView
+            Nothing ->
+                notFoundView
+        ]
     ]
 
 
@@ -149,6 +151,16 @@ notFoundView =
     div []
         [ h1 [] [ text "Not found :(" ]
         ]
+
+
+boxed : List (Attribute msg)
+boxed =
+    [ style
+        [ ( "margin", "auto" )
+        , ( "padding-left", "8%" )
+        , ( "padding-right", "8%" )
+        ]
+    ]
 
 
 
