@@ -3,6 +3,7 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Navigation
+import Style as Style
 import UrlParser as Url
 
 
@@ -57,18 +58,21 @@ route =
 
 view : Model -> Html Msg
 view model =
-    List.head (mainView model)
-        |> Maybe.withDefault (div [] [])
+    div [ style Style.boxed ]
+        [ Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "../style.css" ] []
+        , header_ model
+        , mainView model
+        ]
 
 
-header : Model -> List (Html msg)
-header model =
-    [ h1 [] [ text "elm-sample-spa" ] ]
+header_ : Model -> Html msg
+header_ model =
+    header [] [ h1 [] [ text "elm-sample-spa" ] ]
 
 
-mainView : Model -> List (Html msg)
+mainView : Model -> Html msg
 mainView model =
-    [ div [ class "boxed" ]
+    div []
         [ h1 [] [ text "Pages" ]
         , ul [] (List.map viewLink [ "birds", "cats", "dogs" ])
         , case model.currentRoute of
@@ -87,7 +91,6 @@ mainView model =
             Nothing ->
                 notFoundView
         ]
-    ]
 
 
 homeView : Model -> Html msg
