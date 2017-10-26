@@ -58,8 +58,9 @@ route =
 
 view : Model -> Html Msg
 view model =
-    div [ style Style.boxed ]
-        [ Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "../style.css" ] []
+    div []
+        [ Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "../normalize.css" ] []
+        , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "../style.css" ] []
         , header_ model
         , mainView model
         ]
@@ -67,12 +68,12 @@ view model =
 
 header_ : Model -> Html msg
 header_ model =
-    header [] [ h1 [] [ text "elm-sample-spa" ] ]
+    header [ style Style.header ] [ span [ style Style.headerTitle ] [ text "elm-sample-spa" ] ]
 
 
 mainView : Model -> Html msg
 mainView model =
-    div []
+    div [ style Style.boxed ]
         [ h1 [] [ text "Pages" ]
         , ul [] (List.map viewLink [ "birds", "cats", "dogs" ])
         , case model.currentRoute of
