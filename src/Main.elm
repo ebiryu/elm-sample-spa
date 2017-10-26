@@ -68,7 +68,11 @@ view model =
 
 header_ : Model -> Html msg
 header_ model =
-    header [ style Style.header ] [ span [ style Style.headerTitle ] [ text "elm-sample-spa" ] ]
+    header [ style Style.header ]
+        [ a [ style Style.headerTitle, href "#" ] [ text "elm-sample-spa" ]
+        , ul [ style Style.headerTabs ]
+            (List.map viewLinkTab [ "birds", "cats", "dogs" ])
+        ]
 
 
 mainView : Model -> Html msg
@@ -98,7 +102,7 @@ homeView : Model -> Html msg
 homeView model =
     div []
         [ h1 [] [ text "History" ]
-        , ul [] (List.map viewRoute model.history)
+        , ul [] (List.map viewRoute (List.reverse model.history))
         ]
 
 
@@ -110,6 +114,14 @@ viewRoute maybeRoute =
 
         Just route ->
             li [] [ text (toString route) ]
+
+
+viewLinkTab : String -> Html msg
+viewLinkTab name =
+    li [ style Style.headerTab, class "headerTabA" ]
+        [ a [ href ("#" ++ name), style Style.headerTabA ]
+            [ span [] [ text name ] ]
+        ]
 
 
 viewLink : String -> Html msg
