@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Navigation
 import Style as Style
 import UrlParser as Url
@@ -24,6 +25,7 @@ main =
 type alias Model =
     { history : List (Maybe Route)
     , currentRoute : Maybe Route
+    , drawerState : Bool
     }
 
 
@@ -31,6 +33,7 @@ init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     { history = [ Url.parseHash route location ]
     , currentRoute = Just Home
+    , drawerState = False
     }
         ! []
 
@@ -58,29 +61,60 @@ route =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "../normalize.css" ] []
+    div
+        (case model.drawerState of
+            True ->
+                [ onClick ToggleDrawer ]
+
+            False ->
+                []
+        )
+        [ Html.node "link"
+            [ Html.Attributes.rel "stylesheet"
+            , Html.Attributes.href "https://fonts.googleapis.com/icon?family=Material+Icons"
+            ]
+            []
+        , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "../normalize.css" ] []
         , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "../style.css" ] []
         , header_ model
         , mainView model
         ]
 
 
-header_ : Model -> Html msg
+header_ : Model -> Html Msg
 header_ model =
     header [ style Style.header ]
-        [ a [ style Style.headerTitle, href "#" ] [ text "elm-sample-spa" ]
+        [ a
+            (case model.drawerState of
+                True ->
+                    []
+
+                False ->
+                    [ onClick ToggleDrawer ]
+            )
+            [ i
+                [ style Style.headerDrawerIcon
+                , class "material-icons md-36"
+                ]
+                [ text "menu" ]
+            ]
+        , a [ style Style.headerTitle, href "#" ] [ text "elm-sample-spa" ]
         , ul [ style Style.headerTabs ]
             (List.map viewLinkTab [ "birds", "cats", "dogs" ])
+        , case model.drawerState of
+            True ->
+                ul [ style Style.drawer ]
+                    (List.map viewLink [ "birds", "cats", "dogs" ])
+
+            False ->
+                span [] []
         ]
 
 
 mainView : Model -> Html msg
 mainView model =
     div [ style Style.boxed ]
-        [ h1 [] [ text "Pages" ]
-        , ul [] (List.map viewLink [ "birds", "cats", "dogs" ])
-        , case model.currentRoute of
+        [ case model.currentRoute of
             Just Home ->
                 homeView model
 
@@ -154,6 +188,7 @@ notFoundView =
 
 type Msg
     = UrlChange Navigation.Location
+    | ToggleDrawer
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -169,6 +204,9 @@ update msg model =
                 , history = nextRoute :: model.history
             }
                 ! []
+
+        ToggleDrawer ->
+            { model | drawerState = not model.drawerState } ! []
 
 
 

@@ -11,6 +11,25 @@ header =
     ]
 
 
+headerDrawerIcon =
+    [ ( "font-size", "2rem" )
+    , ( "padding", "1rem" )
+    , ( "color", "#F0F0F0" )
+    , ( "cursor", "pointer" )
+    ]
+
+
+drawer =
+    [ ( "position", "absolute" )
+    , ( "top", "3rem" )
+    , ( "left", "0" )
+    , ( "width", "5rem" )
+    , ( "padding", "1rem" )
+    , ( "box-shadow", "0 0 6px rgba(0,0,0,0.23)" )
+    , ( "background-color", "#FFFFFF" )
+    ]
+
+
 headerTitle =
     [ ( "font-size", "2rem" )
     , ( "margin", "0.8rem" )
@@ -39,7 +58,7 @@ headerTab =
 headerTabA =
     [ ( "text-decoration", "none" )
     , ( "color", "#FFFFFF" )
-    , ( "background-color", "rgba(255,255,255,0.2)" )
+    , ( "background-color", "rgba(255,255,255,0.1)" )
     , ( "width", "4rem" )
     , ( "height", "4rem" )
     , ( "display", "flex" )
