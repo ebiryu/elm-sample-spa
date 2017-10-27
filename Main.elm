@@ -74,8 +74,8 @@ view model =
             , Html.Attributes.href "https://fonts.googleapis.com/icon?family=Material+Icons"
             ]
             []
-        , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "../normalize.css" ] []
-        , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "../style.css" ] []
+        , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "./normalize.css" ] []
+        , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "./style.css" ] []
         , header_ model
         , mainView model
         ]
