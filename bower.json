@@ -1,0 +1,18 @@
+{
+  "name": "elm-sample-spa",
+  "homepage": "https://github.com/ebiryu/elm-sample-spa",
+  "authors": [
+    "Ryuta Ebihara <nu.ebiryu.priv@gmail.com>"
+    ],
+  "description": "Integrating the Google Maps into Elm via Polymer",
+  "main": "index.html",
+  "license": "BSD-3-Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+    ],
+  "dependencies": {
+    "google-map": "GoogleWebComponents/google-map#^1.1.13"
+    }
+}

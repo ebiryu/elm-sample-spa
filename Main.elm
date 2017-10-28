@@ -3,9 +3,6 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Mapbox.Endpoint as Endpoint
-import Mapbox.Maps.SlippyMap as Mapbox
-import MapboxAccessToken exposing (mapboxToken)
 import Navigation
 import Style as Style
 import UrlParser as Url
@@ -140,13 +137,13 @@ homeView model =
     div []
         [ h1 [] [ text "History" ]
         , ul [] (List.map viewRoute (List.reverse model.history))
-        , embeddedSlippyMap
+        , googleMap [] []
         ]
 
 
-embeddedSlippyMap : Html msg
-embeddedSlippyMap =
-    Mapbox.slippyMap Endpoint.streets mapboxToken Nothing Nothing (Mapbox.Size 1000 1000)
+googleMap : List (Attribute msg) -> List (Html msg) -> Html msg
+googleMap =
+    Html.node "google-map"
 
 
 viewRoute : Maybe Route -> Html msg
