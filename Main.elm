@@ -27,6 +27,7 @@ init location =
     { history = [ Url.parseHash route location ]
     , currentRoute = Just Home
     , drawerState = False
+    , coordinate = Model.initLatLong
     }
         ! []
 
@@ -61,6 +62,12 @@ update msg model =
 
         ToggleDrawer ->
             { model | drawerState = not model.drawerState } ! []
+
+        SetLatLong lat long ->
+            { model
+                | coordinate = { latitude = lat, longitude = long }
+            }
+                ! []
 
 
 

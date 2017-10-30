@@ -3,6 +3,7 @@ module View exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Decode as Decode exposing (at, float, map2)
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Style as Style
@@ -60,7 +61,7 @@ header_ model =
         ]
 
 
-mainView : Model -> Html msg
+mainView : Model -> Html Msg
 mainView model =
     div [ style Style.boxed ]
         [ case model.currentRoute of
@@ -81,18 +82,37 @@ mainView model =
         ]
 
 
-homeView : Model -> Html msg
+homeView : Model -> Html Msg
 homeView model =
     div []
         [ h1 [] [ text "History" ]
         , ul [] (List.map viewRoute (List.reverse model.history))
-        , googleMap [] []
+        , googleMap
+            [ attribute "latitude" (toString model.coordinate.latitude)
+            , attribute "longitude" (toString model.coordinate.longitude)
+            , attribute "drag-events" "true"
+            , recordLatLongOnDrag
+            ]
+            []
+        , div []
+            [ text <| toString model.coordinate.latitude
+            , text " "
+            , text <| toString model.coordinate.longitude
+            ]
         ]
 
 
 googleMap : List (Attribute msg) -> List (Html msg) -> Html msg
 googleMap =
     Html.node "google-map"
+
+
+recordLatLongOnDrag : Attribute Msg
+recordLatLongOnDrag =
+    on "google-map-drag" <|
+        map2 SetLatLong
+            (at [ "target", "latitude" ] float)
+            (at [ "target", "longitude" ] float)
 
 
 viewRoute : Maybe Route -> Html msg
