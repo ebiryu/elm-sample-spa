@@ -1,6 +1,5 @@
 module Main exposing (..)
 
-import Html exposing (..)
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Navigation
