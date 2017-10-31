@@ -1,0 +1,11 @@
+{
+  "name": "elm-sample-spa",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/ebiryu/elm-sample-spa.git",
+  "author": "ebiryu <ebiryu.zatta@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "json-server": "0.9.0"
+  }
+}

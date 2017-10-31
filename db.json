@@ -1,0 +1,40 @@
+{
+  "places": [
+    {
+      "id": "1",
+      "name": "Sally",
+      "latitude": 48.2082,
+      "longitude": 16.3738
+    },
+    {
+      "id": "2",
+      "name": "Lance",
+      "latitude": 47.2082,
+      "longitude": 16.3738
+    },
+    {
+      "id": "3",
+      "name": "Aki",
+      "latitude": 46.2082,
+      "longitude": 16.3738
+    },
+    {
+      "id": "4",
+      "name": "Maria",
+      "latitude": 45.2082,
+      "longitude": 16.3738
+    },
+    {
+      "id": "5",
+      "name": "Julian",
+      "latitude": 44.2082,
+      "longitude": 16.3738
+    },
+    {
+      "id": "6",
+      "name": "Jaime",
+      "latitude": 43.2082,
+      "longitude": 16.3738
+    }
+  ]
+}
