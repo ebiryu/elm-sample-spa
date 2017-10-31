@@ -8,7 +8,6 @@ type alias Model =
     , currentRoute : Maybe Route
     , drawerState : Bool
     , coordinate : LatLng
-    , gmap : Value
     }
 
 

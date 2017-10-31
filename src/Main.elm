@@ -1,4 +1,4 @@
-port module Main exposing (..)
+module Main exposing (..)
 
 import Json.Encode exposing (Value)
 import Model exposing (Model, Route(..))
@@ -8,12 +8,6 @@ import Task
 import Time exposing (Time)
 import UrlParser as Url
 import View exposing (view)
-
-
-port loadMap : Model.LatLng -> Cmd msg
-
-
-port receiveMap : (Value -> msg) -> Sub msg
 
 
 main : Program Never Model Msg
@@ -32,14 +26,12 @@ main =
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
-    ( { history = [ Url.parseHash route location ]
-      , currentRoute = Just Home
-      , drawerState = False
-      , coordinate = Model.initLatLng
-      , gmap = Json.Encode.string "to be replaced by google map"
-      }
-    , Time.now |> Task.perform Tick
-    )
+    { history = [ Url.parseHash route location ]
+    , currentRoute = Just Home
+    , drawerState = False
+    , coordinate = Model.initLatLng
+    }
+        ! []
 
 
 route : Url.Parser (Route -> a) a
@@ -79,12 +71,6 @@ update msg model =
             }
                 ! []
 
-        JSMap gmap ->
-            { model | gmap = gmap } ! []
-
-        Tick _ ->
-            model ! [ loadMap model.coordinate ]
-
 
 
 -- subscriptions
@@ -92,4 +78,4 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    receiveMap JSMap
+    Sub.none
