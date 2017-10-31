@@ -4,4 +4,7 @@ elm.js
 app.js
 normalize.css
 src/MapboxAccessToken.elm
+src/apikey.js
 yarn.lock
+yarn-error.log
+/dist/

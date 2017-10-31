@@ -1,22 +1,25 @@
 module Model exposing (..)
 
+import Json.Encode exposing (Value)
+
 
 type alias Model =
     { history : List (Maybe Route)
     , currentRoute : Maybe Route
     , drawerState : Bool
-    , coordinate : LatLong
+    , coordinate : LatLng
+    , gmap : Value
     }
 
 
-type alias LatLong =
+type alias LatLng =
     { latitude : Float
     , longitude : Float
     }
 
 
-initLatLong : LatLong
-initLatLong =
+initLatLng : LatLng
+initLatLng =
     { latitude = 48.2082, longitude = 16.3738 }
 
 
