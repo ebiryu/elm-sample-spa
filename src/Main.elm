@@ -1,11 +1,8 @@
 module Main exposing (..)
 
-import Json.Encode exposing (Value)
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Navigation
-import Task
-import Time exposing (Time)
 import UrlParser as Url
 import View exposing (view)
 
