@@ -37,7 +37,10 @@ gulp.task('elm-bundle', ['elm-init'], function(){
 gulp.task('watch', function() {
   browserSync.init({
 		server: {
-			baseDir: "./dist"
+			baseDir: "./dist",
+			routes: {
+				"/bower_components": "bower_components"
+			}
 		}
 	});
 	console.log("Listening on port 3000");

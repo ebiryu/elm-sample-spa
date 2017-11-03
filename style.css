@@ -48,3 +48,8 @@ google-map {
     height: 400px;
     margin: 10px;
 }
+
+mapbox-gl {
+    height: 400px;
+    margin: 10px;
+}

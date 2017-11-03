@@ -89,7 +89,7 @@ homeView model =
     div []
         [ h1 [] [ text "History" ]
         , ul [] (List.map viewRoute (List.reverse model.history))
-        , embeddedSlippyMap
+        , mapboxWC model
         , div []
             [ text <| toString model.coordinate.latitude
             , text " "
@@ -101,6 +101,16 @@ homeView model =
 embeddedSlippyMap : Html msg
 embeddedSlippyMap =
     Mapbox.slippyMap Endpoint.streets mapboxToken Nothing Nothing (Mapbox.Size 1000 1000)
+
+
+mapboxWC : Model -> Html msg
+mapboxWC model =
+    node "mapbox-gl"
+        [ attribute "interactive" ""
+        , attribute "script-src" "https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js"
+        , attribute "access-token" mapboxToken
+        ]
+        []
 
 
 viewRoute : Maybe Route -> Html msg

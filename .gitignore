@@ -1,5 +1,6 @@
-elm-stuff/
-node_modules/
+/elm-stuff/
+/node_modules/
+/bower_components/
 elm.js
 app.js
 normalize.css

@@ -6,6 +6,7 @@
   "author": "ebiryu <ebiryu.zatta@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bower": "^1.8.2",
     "browser-sync": "^2.18.13",
     "foreman": "^2.0.0",
     "graceful-fs": "^4.1.11",
