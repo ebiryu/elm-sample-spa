@@ -1,6 +1,7 @@
 module Model exposing (..)
 
 import Json.Encode exposing (Value)
+import RemoteData exposing (WebData)
 
 
 type alias Model =
@@ -8,6 +9,7 @@ type alias Model =
     , currentRoute : Maybe Route
     , drawerState : Bool
     , coordinate : LatLng
+    , places : WebData (List Place)
     }
 
 
@@ -20,6 +22,18 @@ type alias LatLng =
 initLatLng : LatLng
 initLatLng =
     { latitude = 48.2082, longitude = 16.3738 }
+
+
+type alias PlaceId =
+    String
+
+
+type alias Place =
+    { id : PlaceId
+    , name : String
+    , latitude : Float
+    , longitude : Float
+    }
 
 
 type Route

@@ -1,8 +1,10 @@
 module Main exposing (..)
 
+import Commands exposing (fetchPlaces)
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Navigation
+import RemoteData
 import UrlParser as Url
 import View exposing (view)
 
@@ -27,8 +29,9 @@ init location =
     , currentRoute = Just Home
     , drawerState = False
     , coordinate = Model.initLatLng
+    , places = RemoteData.Loading
     }
-        ! []
+        ! [ fetchPlaces ]
 
 
 route : Url.Parser (Route -> a) a
@@ -67,6 +70,9 @@ update msg model =
                 | coordinate = { latitude = lat, longitude = long }
             }
                 ! []
+
+        OnFetchPlaces response ->
+            { model | places = response } ! []
 
 
 

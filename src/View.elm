@@ -3,11 +3,10 @@ module View exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Mapbox.Endpoint as Endpoint
-import Mapbox.Maps.SlippyMap as Mapbox
 import MapboxAccessToken exposing (mapboxToken)
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
+import RemoteData
 import Style as Style
 
 
@@ -95,12 +94,19 @@ homeView model =
             , text " "
             , text <| toString model.coordinate.longitude
             ]
+        , case model.places of
+            RemoteData.NotAsked ->
+                text ""
+
+            RemoteData.Loading ->
+                text "Loading"
+
+            RemoteData.Success places ->
+                listPlaces places
+
+            RemoteData.Failure error ->
+                text (toString error)
         ]
-
-
-embeddedSlippyMap : Html msg
-embeddedSlippyMap =
-    Mapbox.slippyMap Endpoint.streets mapboxToken Nothing Nothing (Mapbox.Size 1000 1000)
 
 
 mapboxWC : Model -> Html msg
@@ -109,8 +115,24 @@ mapboxWC model =
         [ attribute "interactive" ""
         , attribute "script-src" "https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js"
         , attribute "access-token" mapboxToken
+        , attribute "latitude" (toString model.coordinate.latitude)
+        , attribute "longitude" (toString model.coordinate.longitude)
         ]
         []
+
+
+listPlaces : List Model.Place -> Html msg
+listPlaces places =
+    ul [] (List.map placeLi places)
+
+
+placeLi : Model.Place -> Html msg
+placeLi place =
+    li []
+        [ text place.name
+        , text <| toString place.latitude
+        , text <| toString place.longitude
+        ]
 
 
 viewRoute : Maybe Route -> Html msg
