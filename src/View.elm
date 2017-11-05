@@ -3,6 +3,7 @@ module View exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Decode as Decode
 import MapboxAccessToken exposing (mapboxToken)
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
@@ -109,26 +110,42 @@ homeView model =
         ]
 
 
-mapboxWC : Model -> Html msg
+mapboxWC : Model -> Html Msg
 mapboxWC model =
     node "mapbox-gl"
         [ attribute "interactive" ""
+        , attribute "map" "{{map}}"
         , attribute "script-src" "https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js"
         , attribute "access-token" mapboxToken
         , attribute "latitude" (toString model.coordinate.latitude)
         , attribute "longitude" (toString model.coordinate.longitude)
+        , attribute "zoom" (toString 13)
+        , latitudeChange model
+        , longitudeChange model
         ]
         []
 
 
-listPlaces : List Model.Place -> Html msg
+latitudeChange : Model -> Attribute Msg
+latitudeChange model =
+    on "latitude-changed" <|
+        Decode.map SetLatitude (Decode.at [ "target", "latitude" ] Decode.float)
+
+
+longitudeChange : Model -> Attribute Msg
+longitudeChange model =
+    on "longitude-changed" <|
+        Decode.map SetLongitude (Decode.at [ "target", "longitude" ] Decode.float)
+
+
+listPlaces : List Model.Place -> Html Msg
 listPlaces places =
     div [ class "list p10" ] (List.map placeLi places)
 
 
-placeLi : Model.Place -> Html msg
+placeLi : Model.Place -> Html Msg
 placeLi place =
-    div []
+    div [ onClick (SetLatLng place.latitude place.longitude) ]
         [ article [ class "center mw5 mw6-ns br3 hidden ba b--black-10 mv4" ]
             [ div [ class "f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3" ] [ text place.name ]
             , div [ class "pa3 bt b--black-10" ]

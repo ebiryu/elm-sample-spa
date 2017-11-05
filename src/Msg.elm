@@ -9,5 +9,7 @@ import RemoteData exposing (WebData)
 type Msg
     = UrlChange Navigation.Location
     | ToggleDrawer
-    | SetLatLong Float Float
+    | SetLatLng Float Float
+    | SetLatitude Float
+    | SetLongitude Float
     | OnFetchPlaces (WebData (List Place))

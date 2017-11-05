@@ -65,11 +65,14 @@ update msg model =
         ToggleDrawer ->
             { model | drawerState = not model.drawerState } ! []
 
-        SetLatLong lat long ->
-            { model
-                | coordinate = { latitude = lat, longitude = long }
-            }
-                ! []
+        SetLatLng lat long ->
+            { model | coordinate = { latitude = lat, longitude = long } } ! []
+
+        SetLatitude lat ->
+            { model | coordinate = { latitude = lat, longitude = model.coordinate.longitude } } ! []
+
+        SetLongitude long ->
+            { model | coordinate = { latitude = model.coordinate.latitude, longitude = long } } ! []
 
         OnFetchPlaces response ->
             { model | places = response } ! []
