@@ -35,7 +35,8 @@ view model =
 
 header_ : Model -> Html Msg
 header_ model =
-    header [ style Style.header ]
+    -- header [ style Style.header ]
+    header [ class "flex items-center bg-blue h3 shadow-2" ]
         [ a
             (case model.drawerState of
                 True ->
@@ -45,13 +46,12 @@ header_ model =
                     [ onClick ToggleDrawer ]
             )
             [ i
-                [ style Style.headerDrawerIcon
-                , class "material-icons md-36"
+                [ class "white ma2 material-icons md-36 pointer"
                 ]
                 [ text "menu" ]
             ]
-        , a [ style Style.headerTitle, href "#" ] [ text "elm-sample-spa" ]
-        , div [ style Style.headerTabs ]
+        , a [ class "link white f2", href "#" ] [ text "elm-sample-spa" ]
+        , div [ class "ml-auto mr2 flex" ]
             (List.map viewLinkTab [ "birds", "cats", "dogs" ])
         , case model.drawerState of
             True ->
@@ -173,8 +173,8 @@ viewRoute maybeRoute =
 
 viewLinkTab : String -> Html msg
 viewLinkTab name =
-    span [ style Style.headerTab, class "headerTabA" ]
-        [ a [ href ("#" ++ name), style Style.headerTabA, class "ba br3 bw1 b--white" ]
+    span [ class "dim h2 w3" ]
+        [ a [ href ("#" ++ name), class "link flex justify-center items-center h2 mr1 ml1 white ba br3 bw1 b--white" ]
             [ span [] [ text name ] ]
         ]
 

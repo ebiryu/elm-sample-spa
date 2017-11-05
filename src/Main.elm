@@ -26,7 +26,7 @@ main =
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     { history = [ Url.parseHash route location ]
-    , currentRoute = Just Home
+    , currentRoute = Url.parseHash route location
     , drawerState = False
     , coordinate = Model.initLatLng
     , places = RemoteData.Loading
