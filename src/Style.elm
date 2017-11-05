@@ -48,7 +48,7 @@ headerTabs =
 headerTab =
     [ ( "display", "inline-block" )
     , ( "width", "4rem" )
-    , ( "height", "4rem" )
+    , ( "height", "3rem" )
     , ( "text-align", "center" )
     , ( "text-decoration", "none" )
     , ( "color", "#FFFFFF" )
@@ -58,9 +58,8 @@ headerTab =
 headerTabA =
     [ ( "text-decoration", "none" )
     , ( "color", "#FFFFFF" )
-    , ( "background-color", "rgba(255,255,255,0.1)" )
-    , ( "width", "4rem" )
-    , ( "height", "4rem" )
+    , ( "width", "3.5rem" )
+    , ( "height", "3rem" )
     , ( "display", "flex" )
     , ( "justify-content", "center" )
     , ( "align-items", "center" )

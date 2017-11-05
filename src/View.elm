@@ -50,7 +50,7 @@ header_ model =
                 [ text "menu" ]
             ]
         , a [ style Style.headerTitle, href "#" ] [ text "elm-sample-spa" ]
-        , ul [ style Style.headerTabs ]
+        , div [ style Style.headerTabs ]
             (List.map viewLinkTab [ "birds", "cats", "dogs" ])
         , case model.drawerState of
             True ->
@@ -123,16 +123,25 @@ mapboxWC model =
 
 listPlaces : List Model.Place -> Html msg
 listPlaces places =
-    ul [] (List.map placeLi places)
+    div [ class "list p10" ] (List.map placeLi places)
 
 
 placeLi : Model.Place -> Html msg
 placeLi place =
-    li []
-        [ text place.name
-        , text <| toString place.latitude
-        , text <| toString place.longitude
+    div []
+        [ article [ class "center mw5 mw6-ns br3 hidden ba b--black-10 mv4" ]
+            [ div [ class "f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3" ] [ text place.name ]
+            , div [ class "pa3 bt b--black-10" ]
+                [ pInList <| toString place.latitude
+                , pInList <| toString place.longitude
+                ]
+            ]
         ]
+
+
+pInList : String -> Html msg
+pInList string =
+    p [ class "f6 f5-ns lh-copy measure" ] [ text string ]
 
 
 viewRoute : Maybe Route -> Html msg
@@ -147,8 +156,8 @@ viewRoute maybeRoute =
 
 viewLinkTab : String -> Html msg
 viewLinkTab name =
-    li [ style Style.headerTab, class "headerTabA" ]
-        [ a [ href ("#" ++ name), style Style.headerTabA ]
+    span [ style Style.headerTab, class "headerTabA" ]
+        [ a [ href ("#" ++ name), style Style.headerTabA, class "ba br3 bw1 b--white" ]
             [ span [] [ text name ] ]
         ]
 
