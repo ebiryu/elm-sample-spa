@@ -41,6 +41,7 @@ route =
         , Url.map Birds (Url.s "birds")
         , Url.map Cats (Url.s "cats")
         , Url.map Dogs (Url.s "dogs")
+        , Url.map Map (Url.s "map")
         ]
 
 

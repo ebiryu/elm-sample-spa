@@ -52,11 +52,11 @@ header_ model =
             ]
         , a [ class "link white f2", href "#" ] [ text "elm-sample-spa" ]
         , div [ class "ml-auto mr2 flex" ]
-            (List.map viewLinkTab [ "birds", "cats", "dogs" ])
+            (List.map viewLinkTab [ "birds", "cats", "dogs", "map" ])
         , case model.drawerState of
             True ->
                 ul [ style Style.drawer ]
-                    (List.map viewLink [ "birds", "cats", "dogs" ])
+                    (List.map viewLink [ "birds", "cats", "dogs", "map" ])
 
             False ->
                 span [] []
@@ -79,6 +79,9 @@ mainView model =
             Just Dogs ->
                 animalView "dogs" ""
 
+            Just Map ->
+                mapView model
+
             Nothing ->
                 notFoundView
         ]
@@ -89,7 +92,13 @@ homeView model =
     div []
         [ h1 [] [ text "History" ]
         , ul [] (List.map viewRoute (List.reverse model.history))
-        , mapboxWC model
+        ]
+
+
+mapView : Model -> Html Msg
+mapView model =
+    div []
+        [ mapboxWC model
         , div []
             [ text <| toString model.coordinate.latitude
             , text " "
@@ -113,8 +122,7 @@ homeView model =
 mapboxWC : Model -> Html Msg
 mapboxWC model =
     node "mapbox-gl"
-        [ attribute "interactive" ""
-        , attribute "map" "{{map}}"
+        [ attribute "map" "{{map}}"
         , attribute "script-src" "https://api.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js"
         , attribute "access-token" mapboxToken
         , attribute "latitude" (toString model.coordinate.latitude)
@@ -145,8 +153,11 @@ listPlaces places =
 
 placeLi : Model.Place -> Html Msg
 placeLi place =
-    div [ onClick (SetLatLng place.latitude place.longitude) ]
-        [ article [ class "center mw5 mw6-ns br3 hidden ba b--black-10 mv4" ]
+    div []
+        [ article
+            [ class "center mw5 mw6-ns br3 hidden ba b--black-10 mv4"
+            , onMouseOver (SetLatLng place.latitude place.longitude)
+            ]
             [ div [ class "f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3" ] [ text place.name ]
             , div [ class "pa3 bt b--black-10" ]
                 [ pInList <| toString place.latitude
@@ -173,7 +184,7 @@ viewRoute maybeRoute =
 
 viewLinkTab : String -> Html msg
 viewLinkTab name =
-    span [ class "dim h2 w3" ]
+    span [ class "dim h2 w3 dn dib-l" ]
         [ a [ href ("#" ++ name), class "link flex justify-center items-center h2 mr1 ml1 white ba br3 bw1 b--white" ]
             [ span [] [ text name ] ]
         ]

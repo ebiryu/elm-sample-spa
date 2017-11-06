@@ -41,3 +41,4 @@ type Route
     | Birds
     | Cats
     | Dogs
+    | Map
