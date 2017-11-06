@@ -2,39 +2,45 @@
   "places": [
     {
       "id": "1",
-      "name": "Vienna",
-      "latitude": 48.2082,
-      "longitude": 16.3738
+      "name": "理学部",
+      "latitude": 38.2583,
+      "longitude": 140.8385
     },
     {
       "id": "2",
-      "name": "Ljubljana",
-      "latitude": 46.0490,
-      "longitude": 14.5066
+      "name": "工学部",
+      "latitude": 38.2545,
+      "longitude": 140.8420
     },
     {
       "id": "3",
-      "name": "Zagreb",
-      "latitude": 45.7974,
-      "longitude": 15.9799
+      "name": "農学部",
+      "latitude": 38.2549,
+      "longitude": 140.8309
     },
     {
       "id": "4",
-      "name": "Venice",
-      "latitude": 45.4341,
-      "longitude": 12.3380
+      "name": "川内南",
+      "latitude": 38.2571,
+      "longitude": 140.8537
     },
     {
       "id": "5",
-      "name": "Goettingen",
-      "latitude": 51.5324,
-      "longitude": 9.9355
+      "name": "川内北",
+      "latitude": 38.2604,
+      "longitude": 140.8515
     },
     {
       "id": "6",
-      "name": "Sendai",
-      "latitude": 38.2661,
-      "longitude": 140.8718
+      "name": "片平",
+      "latitude": 38.2534,
+      "longitude": 140.8742
+    },
+    {
+      "id": "7",
+      "name": "星稜",
+      "latitude": 38.2721,
+      "longitude": 140.8594
     }
   ]
 }

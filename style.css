@@ -10,6 +10,10 @@ body {
   padding-right: 8%;
 }
 
+.link:focus {
+  outline:0px dotted currentColor
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
