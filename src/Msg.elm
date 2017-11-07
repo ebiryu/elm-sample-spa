@@ -13,3 +13,4 @@ type Msg
     | SetLatitude Float
     | SetLongitude Float
     | OnFetchPlaces (WebData (List Place))
+    | ToggleSearch

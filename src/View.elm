@@ -21,11 +21,7 @@ view model =
             False ->
                 []
         )
-        [ Html.node "link"
-            [ Html.Attributes.rel "stylesheet"
-            , Html.Attributes.href "https://fonts.googleapis.com/icon?family=Material+Icons"
-            ]
-            []
+        [ searchView model
         , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "./normalize.css" ] []
         , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "./style.css" ] []
         , header_ model
@@ -92,7 +88,34 @@ homeView model =
     div []
         [ h1 [] [ text "History" ]
         , ul [] (List.map viewRoute (List.reverse model.history))
+        , h1 [] [ text "Search" ]
+        , a
+            [ class "no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex items-center ma2 tc br2 pa2 pointer"
+            , onClick ToggleSearch
+            ]
+            [ i [ class "material-icons dib h2 w2 md-36" ] [ text "search" ]
+            , span [ class "f6 ml3 pr2" ] [ text "Search" ]
+            ]
         ]
+
+
+searchView : Model -> Html Msg
+searchView model =
+    if model.toggleSearch then
+        div [ class "bg-blue w-100 h-100 absolute top-0 left-0" ]
+            [ i [ class "material-icons md-48 ml5 mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
+            , div [ class "mh5" ]
+                [ div [ class "f3 pv2 white" ] [ text "検索" ]
+                , input
+                    [ type_ "text"
+                    , class "f6 f5-l input-reset bn pa3 br2 w-100 w-75-m w-80-l"
+                    , placeholder "行きたい場所"
+                    ]
+                    []
+                ]
+            ]
+    else
+        text ""
 
 
 mapView : Model -> Html Msg

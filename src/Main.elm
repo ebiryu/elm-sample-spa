@@ -30,6 +30,7 @@ init location =
     , drawerState = False
     , coordinate = Model.initLatLng
     , places = RemoteData.Loading
+    , toggleSearch = False
     }
         ! [ fetchPlaces ]
 
@@ -77,6 +78,9 @@ update msg model =
 
         OnFetchPlaces response ->
             { model | places = response } ! []
+
+        ToggleSearch ->
+            { model | toggleSearch = not model.toggleSearch } ! []
 
 
 

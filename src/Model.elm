@@ -10,6 +10,7 @@ type alias Model =
     , drawerState : Bool
     , coordinate : LatLng
     , places : WebData (List Place)
+    , toggleSearch : Bool
     }
 
 
