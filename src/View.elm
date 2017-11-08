@@ -104,7 +104,7 @@ searchView model =
     if model.toggleSearch then
         div [ class "bg-blue w-100 h-100 absolute top-0 left-0" ]
             [ i [ class "material-icons md-48 ml5 mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
-            , div [ class "mh5" ]
+            , div [ class "mh5 w-75" ]
                 [ div [ class "f3 pv2 white" ] [ text "検索" ]
                 , input
                     [ id "search-place"
@@ -114,7 +114,7 @@ searchView model =
                     , onInput StartSearching
                     ]
                     []
-                , ul [ class "list pa1" ] (List.map searchResultList model.searchResult)
+                , ul [ class "list pa1 overflow-auto vh-50 bt bb b--white-50" ] (List.map searchResultList model.searchResult)
                 ]
             ]
     else
@@ -123,7 +123,7 @@ searchView model =
 
 searchResultList : String -> Html msg
 searchResultList string =
-    li [ class "b--white bb bw1 mv3 white f4" ] [ text string ]
+    li [ class "b--white bb bw1 mv4 white f4" ] [ text string ]
 
 
 mapView : Model -> Html Msg
