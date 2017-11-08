@@ -107,7 +107,8 @@ searchView model =
             , div [ class "mh5" ]
                 [ div [ class "f3 pv2 white" ] [ text "検索" ]
                 , input
-                    [ type_ "search"
+                    [ id "search-place"
+                    , type_ "search"
                     , class "f6 f5-l input-reset bn pa3 br2 w-100 w-75-m w-80-l"
                     , placeholder "場所を入力"
                     , onInput StartSearching

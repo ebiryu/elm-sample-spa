@@ -1,5 +1,6 @@
 module Msg exposing (..)
 
+import Dom
 import Json.Encode exposing (Value)
 import Model exposing (Place)
 import Navigation
@@ -15,3 +16,4 @@ type Msg
     | OnFetchPlaces (WebData (List Place))
     | ToggleSearch
     | StartSearching String
+    | FocusOnInput (Result Dom.Error ())

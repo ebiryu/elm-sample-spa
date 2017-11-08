@@ -1,11 +1,13 @@
 module Main exposing (..)
 
 import Commands exposing (fetchPlaces)
+import Dom
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Navigation
 import RemoteData
 import Search
+import Task
 import UrlParser as Url
 import View exposing (view)
 
@@ -82,7 +84,10 @@ update msg model =
             { model | places = response } ! []
 
         ToggleSearch ->
-            { model | toggleSearch = not model.toggleSearch } ! []
+            { model | toggleSearch = not model.toggleSearch } ! [ Task.attempt FocusOnInput (Dom.focus "search-place") ]
+
+        FocusOnInput id ->
+            ( model, Cmd.none )
 
         StartSearching string ->
             { model | searchResult = Search.runFilter string model.places } ! []
