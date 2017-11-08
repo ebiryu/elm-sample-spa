@@ -5,6 +5,7 @@ import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Navigation
 import RemoteData
+import Search
 import UrlParser as Url
 import View exposing (view)
 
@@ -31,6 +32,7 @@ init location =
     , coordinate = Model.initLatLng
     , places = RemoteData.Loading
     , toggleSearch = False
+    , searchResult = []
     }
         ! [ fetchPlaces ]
 
@@ -81,6 +83,9 @@ update msg model =
 
         ToggleSearch ->
             { model | toggleSearch = not model.toggleSearch } ! []
+
+        StartSearching string ->
+            { model | searchResult = Search.runFilter string model.places } ! []
 
 
 

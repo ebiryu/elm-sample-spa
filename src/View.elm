@@ -107,15 +107,22 @@ searchView model =
             , div [ class "mh5" ]
                 [ div [ class "f3 pv2 white" ] [ text "検索" ]
                 , input
-                    [ type_ "text"
+                    [ type_ "search"
                     , class "f6 f5-l input-reset bn pa3 br2 w-100 w-75-m w-80-l"
-                    , placeholder "行きたい場所"
+                    , placeholder "場所を入力"
+                    , onInput StartSearching
                     ]
                     []
+                , ul [ class "list pa1" ] (List.map searchResultList model.searchResult)
                 ]
             ]
     else
         text ""
+
+
+searchResultList : String -> Html msg
+searchResultList string =
+    li [ class "b--white bb bw1 mv3 white f4" ] [ text string ]
 
 
 mapView : Model -> Html Msg

@@ -14,3 +14,4 @@ type Msg
     | SetLongitude Float
     | OnFetchPlaces (WebData (List Place))
     | ToggleSearch
+    | StartSearching String

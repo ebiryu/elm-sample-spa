@@ -9,8 +9,9 @@ type alias Model =
     , currentRoute : Maybe Route
     , drawerState : Bool
     , coordinate : LatLng
-    , places : WebData (List Place)
+    , places : Places
     , toggleSearch : Bool
+    , searchResult : List String
     }
 
 
@@ -35,6 +36,10 @@ type alias Place =
     , latitude : Float
     , longitude : Float
     }
+
+
+type alias Places =
+    WebData (List Place)
 
 
 type Route
