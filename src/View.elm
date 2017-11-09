@@ -123,7 +123,7 @@ searchView model =
 
 
 searchResultList : ( Model.PlaceId, String ) -> Html Msg
-searchResultList placeId ( id, string ) =
+searchResultList ( id, string ) =
     li
         [ class "b--white bb bw1 br2 ma1 ph2 pv3 white f3 hover-bg-white-20 pointer"
         , onClick (SelectPlaceId id)
