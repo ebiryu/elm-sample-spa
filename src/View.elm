@@ -115,18 +115,17 @@ searchView model =
                     ]
                     []
                 , ul [ class "list pa1 overflow-auto vh-50 bt bb b--white-50" ]
-                    (List.map (searchResultList model.selectedPlaceId) model.searchResult)
+                    (List.map searchResultList model.searchResult)
                 ]
             ]
     else
         text ""
 
 
-searchResultList : Model.PlaceId -> ( Model.PlaceId, String ) -> Html Msg
+searchResultList : ( Model.PlaceId, String ) -> Html Msg
 searchResultList placeId ( id, string ) =
     li
-        [ class "b--white bb bw1 br3 ph2 pv3 white f3 pointer"
-        , classList [ ( "bg-white-20", id == placeId ) ]
+        [ class "b--white bb bw1 br2 ma1 ph2 pv3 white f3 hover-bg-white-20 pointer"
         , onClick (SelectPlaceId id)
         ]
         [ text string ]
