@@ -11,7 +11,8 @@ type alias Model =
     , coordinate : LatLng
     , places : Places
     , toggleSearch : Bool
-    , searchResult : List String
+    , searchResult : List ( PlaceId, String )
+    , selectedPlaceId : PlaceId
     }
 
 

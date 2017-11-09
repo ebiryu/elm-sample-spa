@@ -114,16 +114,22 @@ searchView model =
                     , onInput StartSearching
                     ]
                     []
-                , ul [ class "list pa1 overflow-auto vh-50 bt bb b--white-50" ] (List.map searchResultList model.searchResult)
+                , ul [ class "list pa1 overflow-auto vh-50 bt bb b--white-50" ]
+                    (List.map (searchResultList model.selectedPlaceId) model.searchResult)
                 ]
             ]
     else
         text ""
 
 
-searchResultList : String -> Html msg
-searchResultList string =
-    li [ class "b--white bb bw1 mv4 white f4" ] [ text string ]
+searchResultList : Model.PlaceId -> ( Model.PlaceId, String ) -> Html Msg
+searchResultList placeId ( id, string ) =
+    li
+        [ class "b--white bb bw1 br3 ph2 pv3 white f3 pointer"
+        , classList [ ( "bg-white-20", id == placeId ) ]
+        , onClick (SelectPlaceId id)
+        ]
+        [ text string ]
 
 
 mapView : Model -> Html Msg

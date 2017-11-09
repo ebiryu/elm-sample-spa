@@ -4,14 +4,14 @@ import Model exposing (Place, Places)
 import RemoteData
 
 
-runFilter : String -> Places -> List String
+runFilter : String -> Places -> List ( Model.PlaceId, String )
 runFilter string placesData =
     case placesData of
         RemoteData.NotAsked ->
             []
 
         RemoteData.Loading ->
-            [ "Loading" ]
+            [ ( "", "Loading" ) ]
 
         RemoteData.Success places ->
             if string == "" then
@@ -20,10 +20,10 @@ runFilter string placesData =
                 filtering string places
 
         RemoteData.Failure error ->
-            [ toString error ]
+            [ ( "", toString error ) ]
 
 
-filtering : String -> List Place -> List String
+filtering : String -> List Place -> List ( Model.PlaceId, String )
 filtering string places =
-    List.map .name places
-        |> List.filter (String.contains string)
+    List.map (\p -> ( p.id, p.name )) places
+        |> List.filter (\( _, p ) -> String.contains string p)

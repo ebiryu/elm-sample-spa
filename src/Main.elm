@@ -35,6 +35,7 @@ init location =
     , places = RemoteData.Loading
     , toggleSearch = False
     , searchResult = []
+    , selectedPlaceId = ""
     }
         ! [ fetchPlaces ]
 
@@ -91,6 +92,9 @@ update msg model =
 
         StartSearching string ->
             { model | searchResult = Search.runFilter string model.places } ! []
+
+        SelectPlaceId id ->
+            { model | selectedPlaceId = id } ! []
 
 
 
