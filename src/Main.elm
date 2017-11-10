@@ -35,7 +35,7 @@ init location =
     , places = RemoteData.Loading
     , toggleSearch = False
     , searchResult = []
-    , selectedPlaceId = ""
+    , selectedCityId = ""
     , cities = []
     , errMsg = ""
     }
@@ -95,8 +95,8 @@ update msg model =
         StartSearching string ->
             { model | searchResult = Search.runFilter2 string model.cities } ! []
 
-        SelectPlaceId id ->
-            { model | selectedPlaceId = id } ! []
+        SelectCityId id ->
+            { model | selectedCityId = id } ! []
 
         GetCityList (Ok cities) ->
             { model | cities = Commands.runCsvDecoder cities } ! []

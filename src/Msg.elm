@@ -18,5 +18,5 @@ type Msg
     | ToggleSearch
     | StartSearching String
     | FocusOnInput (Result Dom.Error ())
-    | SelectPlaceId String
+    | SelectCityId String
     | GetCityList (Result Http.Error String)

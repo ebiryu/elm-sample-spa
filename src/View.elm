@@ -103,30 +103,37 @@ searchView : Model -> Html Msg
 searchView model =
     if model.toggleSearch then
         div [ class "bg-blue w-100 h-100 absolute top-0 left-0" ]
-            [ i [ class "material-icons md-48 ml5 mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
-            , div [ class "mh5 w-75" ]
-                [ div [ class "f3 pv2 white" ] [ text "検索" ]
-                , input
-                    [ id "search-place"
-                    , type_ "search"
-                    , class "f6 f5-l input-reset bn pa3 br2 w-100 w-75-m w-80-l"
-                    , placeholder "場所を入力"
-                    , onInput StartSearching
-                    ]
-                    []
-                , ul [ class "list pa1 overflow-auto vh-50 bt bb b--white-50" ]
-                    (List.map searchResultList model.searchResult)
+            [ i [ class "material-icons md-48 ml3 ml5-ns mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
+            , div [ class "mh-3 mh5-ns w-75" ]
+                [ searchFormView model
                 ]
             ]
     else
         text ""
 
 
+searchFormView : Model -> Html Msg
+searchFormView model =
+    div [ class "w-100" ]
+        [ div [ class "f3 pv2 white" ] [ text "検索" ]
+        , input
+            [ id "search-place"
+            , type_ "search"
+            , class "f6 f5-l input-reset bn pa3 br2 w-100 w-75-m w-80-l"
+            , placeholder "場所を入力"
+            , onInput StartSearching
+            ]
+            []
+        , ul [ class "list pa1 overflow-auto vh-50 bt bb b--white-50" ]
+            (List.map searchResultList model.searchResult)
+        ]
+
+
 searchResultList : ( Model.PlaceId, String ) -> Html Msg
 searchResultList ( id, string ) =
     li
         [ class "b--white bb bw1 br2 ma1 ph2 pv3 white f3 hover-bg-white-20 pointer"
-        , onClick (SelectPlaceId id)
+        , onClick (SelectCityId id)
         ]
         [ text string ]
 
