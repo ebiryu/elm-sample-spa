@@ -25,7 +25,10 @@ runFilter string placesData =
 
 runFilter2 : String -> List City -> List ( Model.CityId, String )
 runFilter2 string cities =
-    filtering2 string cities
+    if string == "" then
+        []
+    else
+        filtering2 string cities
 
 
 filtering : String -> List Place -> List ( Model.PlaceId, String )
