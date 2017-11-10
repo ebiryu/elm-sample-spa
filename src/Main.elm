@@ -36,8 +36,10 @@ init location =
     , toggleSearch = False
     , searchResult = []
     , selectedPlaceId = ""
+    , cities = []
+    , errMsg = ""
     }
-        ! [ fetchPlaces ]
+        ! [ fetchPlaces, Commands.fetchCityList ]
 
 
 route : Url.Parser (Route -> a) a
@@ -91,10 +93,16 @@ update msg model =
             ( model, Cmd.none )
 
         StartSearching string ->
-            { model | searchResult = Search.runFilter string model.places } ! []
+            { model | searchResult = Search.runFilter2 string model.cities } ! []
 
         SelectPlaceId id ->
             { model | selectedPlaceId = id } ! []
+
+        GetCityList (Ok cities) ->
+            { model | cities = Commands.runCsvDecoder cities } ! []
+
+        GetCityList (Err err) ->
+            ( { model | errMsg = toString err }, Cmd.none )
 
 
 

@@ -1,6 +1,6 @@
 module Search exposing (..)
 
-import Model exposing (Place, Places)
+import Model exposing (City, Place, Places)
 import RemoteData
 
 
@@ -23,7 +23,18 @@ runFilter string placesData =
             [ ( "", toString error ) ]
 
 
+runFilter2 : String -> List City -> List ( Model.CityId, String )
+runFilter2 string cities =
+    filtering2 string cities
+
+
 filtering : String -> List Place -> List ( Model.PlaceId, String )
 filtering string places =
     List.map (\p -> ( p.id, p.name )) places
+        |> List.filter (\( _, p ) -> String.contains string p)
+
+
+filtering2 : String -> List City -> List ( Model.CityId, String )
+filtering2 string cities =
+    List.map (\p -> ( p.geonameid, p.name )) cities
         |> List.filter (\( _, p ) -> String.contains string p)

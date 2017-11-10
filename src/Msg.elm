@@ -1,6 +1,7 @@
 module Msg exposing (..)
 
 import Dom
+import Http
 import Json.Encode exposing (Value)
 import Model exposing (Place)
 import Navigation
@@ -18,3 +19,4 @@ type Msg
     | StartSearching String
     | FocusOnInput (Result Dom.Error ())
     | SelectPlaceId String
+    | GetCityList (Result Http.Error String)

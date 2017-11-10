@@ -13,6 +13,8 @@ type alias Model =
     , toggleSearch : Bool
     , searchResult : List ( PlaceId, String )
     , selectedPlaceId : PlaceId
+    , cities : List City
+    , errMsg : String
     }
 
 
@@ -49,3 +51,15 @@ type Route
     | Cats
     | Dogs
     | Map
+
+
+type alias City =
+    { name : String
+    , country : String
+    , subcountry : String
+    , geonameid : CityId
+    }
+
+
+type alias CityId =
+    String
