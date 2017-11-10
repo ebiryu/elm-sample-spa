@@ -102,7 +102,7 @@ homeView model =
 searchView : Model -> Html Msg
 searchView model =
     if model.toggleSearch then
-        div [ class "bg-blue w-100 h-100 absolute top-0 left-0" ]
+        div [ class "bg-blue w-100 h-100 absolute top-0 left-0 fixed" ]
             [ i [ class "material-icons md-48 ml3 ml5-ns mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
             , div [ class "mh-3 mh5-ns w-75" ]
                 [ searchFormView model
