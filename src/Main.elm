@@ -38,6 +38,7 @@ init location =
     , selectedCityId = ""
     , cities = []
     , errMsg = ""
+    , numOfPeople = { adult = 0, child = 0 }
     }
         ! [ fetchPlaces, Commands.fetchCityList ]
 
@@ -103,6 +104,27 @@ update msg model =
 
         GetCityList (Err err) ->
             ( { model | errMsg = toString err }, Cmd.none )
+
+        SelectNumOfPeople adult child ->
+            { model | numOfPeople = { adult = adult, child = child } } ! []
+
+        SetNumOfAdult adult ->
+            { model
+                | numOfPeople =
+                    { adult = Result.withDefault 0 (String.toInt adult)
+                    , child = model.numOfPeople.child
+                    }
+            }
+                ! []
+
+        SetNumOfChild child ->
+            { model
+                | numOfPeople =
+                    { adult = model.numOfPeople.adult
+                    , child = Result.withDefault 0 (String.toInt child)
+                    }
+            }
+                ! []
 
 
 

@@ -15,6 +15,7 @@ type alias Model =
     , selectedCityId : CityId
     , cities : List City
     , errMsg : String
+    , numOfPeople : NumOfPeople
     }
 
 
@@ -63,3 +64,9 @@ type alias City =
 
 type alias CityId =
     String
+
+
+type alias NumOfPeople =
+    { adult : Int
+    , child : Int
+    }

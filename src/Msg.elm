@@ -20,3 +20,6 @@ type Msg
     | FocusOnInput (Result Dom.Error ())
     | SelectCityId String
     | GetCityList (Result Http.Error String)
+    | SelectNumOfPeople Int Int
+    | SetNumOfAdult String
+    | SetNumOfChild String
