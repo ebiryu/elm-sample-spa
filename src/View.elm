@@ -13,20 +13,22 @@ import Style as Style
 
 view : Model -> Html Msg
 view model =
-    div
-        (case model.drawerState of
-            True ->
-                [ onClick ToggleDrawer ]
+    if model.toggleSearch then
+        searchView model
+    else
+        div
+            (case model.drawerState of
+                True ->
+                    [ onClick ToggleDrawer ]
 
-            False ->
-                []
-        )
-        [ searchView model
-        , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "./normalize.css" ] []
-        , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "./style.css" ] []
-        , header_ model
-        , mainView model
-        ]
+                False ->
+                    []
+            )
+            [ Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "./normalize.css" ] []
+            , Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "./style.css" ] []
+            , header_ model
+            , mainView model
+            ]
 
 
 header_ : Model -> Html Msg
@@ -101,15 +103,12 @@ homeView model =
 
 searchView : Model -> Html Msg
 searchView model =
-    if model.toggleSearch then
-        div [ class "bg-blue w-100 h-100 absolute top-0 left-0 fixed" ]
-            [ i [ class "material-icons md-48 ml3 ml5-ns mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
-            , div [ class "mh-3 mh5-ns w-75" ]
-                [ searchFormView model
-                ]
+    div [ class "bg-blue w-100 h-100 absolute top-0 left-0 fixed" ]
+        [ i [ class "material-icons md-48 ml3 ml5-ns mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
+        , div [ class "mh-3 mh5-ns w-75" ]
+            [ searchFormView model
             ]
-    else
-        text ""
+        ]
 
 
 searchFormView : Model -> Html Msg
