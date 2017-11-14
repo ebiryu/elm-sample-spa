@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import Animation exposing (px)
 import Commands exposing (fetchPlaces)
 import Dom
 import Model exposing (Model, Route(..))
@@ -8,6 +9,7 @@ import Navigation
 import RemoteData
 import Search
 import Task
+import Time
 import UrlParser as Url
 import View exposing (view)
 
@@ -39,6 +41,9 @@ init location =
     , cities = []
     , errMsg = ""
     , numOfPeople = { adult = 0, child = 0 }
+    , searchConditionNumber = 0
+    , searchConditionStyle =
+        Model.initStyleOfConditions
     }
         ! [ fetchPlaces, Commands.fetchCityList ]
 
@@ -126,6 +131,54 @@ update msg model =
             }
                 ! []
 
+        NextCondition num ->
+            let
+                fadeOutObject =
+                    fadeOut model.searchConditionStyle.searchFormView
+
+                fadeInObject =
+                    fadeIn model.searchConditionStyle.howManyPeopleView
+            in
+            ( { model
+                | searchConditionStyle =
+                    { searchFormView = fadeOutObject
+                    , howManyPeopleView = fadeInObject
+                    }
+              }
+            , Cmd.none
+            )
+
+        Animate animMsg ->
+            { model
+                | searchConditionStyle =
+                    { searchFormView = Animation.update animMsg model.searchConditionStyle.searchFormView
+                    , howManyPeopleView = Animation.update animMsg model.searchConditionStyle.howManyPeopleView
+                    }
+            }
+                ! []
+
+
+fadeOut view =
+    Animation.interrupt [ Animation.wait (Time.second * 0.5) ] view
+        |> Animation.queue
+            [ Animation.to
+                [ Animation.left (px -10.0)
+                , Animation.opacity 0.0
+                ]
+            ]
+        |> Animation.queue [ Animation.set [ Animation.display Animation.none ] ]
+
+
+fadeIn view =
+    Animation.interrupt [ Animation.wait (Time.second * 0.5) ] view
+        |> Animation.queue [ Animation.set [ Animation.display Animation.block ] ]
+        |> Animation.queue
+            [ Animation.to
+                [ Animation.left (px 0.0)
+                , Animation.opacity 1.0
+                ]
+            ]
+
 
 
 -- subscriptions
@@ -133,4 +186,7 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Animation.subscription Animate
+        [ model.searchConditionStyle.searchFormView
+        , model.searchConditionStyle.howManyPeopleView
+        ]

@@ -1,5 +1,6 @@
 module Msg exposing (..)
 
+import Animation
 import Dom
 import Http
 import Json.Encode exposing (Value)
@@ -23,3 +24,5 @@ type Msg
     | SelectNumOfPeople Int Int
     | SetNumOfAdult String
     | SetNumOfChild String
+    | NextCondition Int
+    | Animate Animation.Msg

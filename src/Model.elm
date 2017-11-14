@@ -1,5 +1,6 @@
 module Model exposing (..)
 
+import Animation exposing (px)
 import Json.Encode exposing (Value)
 import RemoteData exposing (WebData)
 
@@ -16,6 +17,8 @@ type alias Model =
     , cities : List City
     , errMsg : String
     , numOfPeople : NumOfPeople
+    , searchConditionNumber : Int
+    , searchConditionStyle : StyleOfConditions
     }
 
 
@@ -69,4 +72,25 @@ type alias CityId =
 type alias NumOfPeople =
     { adult : Int
     , child : Int
+    }
+
+
+type alias StyleOfConditions =
+    { searchFormView : Animation.State
+    , howManyPeopleView : Animation.State
+    }
+
+
+initStyleOfConditions =
+    { searchFormView =
+        Animation.style
+            [ Animation.left (px 0.0)
+            , Animation.opacity 1.0
+            ]
+    , howManyPeopleView =
+        Animation.style
+            [ Animation.left (px 10.0)
+            , Animation.opacity 0.0
+            , Animation.display Animation.none
+            ]
     }

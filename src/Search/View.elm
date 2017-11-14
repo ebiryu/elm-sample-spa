@@ -1,5 +1,6 @@
 module Search.View exposing (view)
 
+import Animation
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -12,21 +13,33 @@ view model =
     div [ class "bg-blue w-100 vh-100 absolute top-0 left-0 fixed" ]
         [ i [ class "material-icons md-48 ml3 ml5-ns mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
         , div
-            [ class "db overflow-x-auto nowrap"
+            [ class "db relative h-70-l"
             ]
             [ searchFormView model
             , howManyPeopleView model
+            ]
+        , div
+            [ class "absolute bottom-2 db br4 bg-white-10 shadow-1 pointer center"
+            , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
+            , onClick (NextCondition <| model.searchConditionNumber + 1)
+            ]
+            [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ]
             ]
         ]
 
 
 inlineClass =
-    "w-90 w-90 w-70-l h-70-l dib v-top mh3 pa3 br3 ba bw2 b--white "
+    "w-90 w-90 w-70-l h-70-l dib v-top mh3 mv2 pa3 br3 ba bw2 b--white shadow-2 absolute"
 
 
 searchFormView : Model -> Html Msg
 searchFormView model =
-    div [ class (inlineClass ++ "ml3 ml5-ns") ]
+    div
+        (List.concat
+            [ Animation.render model.searchConditionStyle.searchFormView
+            , [ class (inlineClass ++ " ml3 ml5-ns") ]
+            ]
+        )
         [ div [ class "f3 mb2 white" ] [ text "検索" ]
         , input
             [ id "search-place"
@@ -52,7 +65,12 @@ searchResultList ( id, string ) =
 
 howManyPeopleView : Model -> Html Msg
 howManyPeopleView model =
-    div [ class inlineClass ]
+    div
+        (List.concat
+            [ Animation.render model.searchConditionStyle.howManyPeopleView
+            , [ class inlineClass ]
+            ]
+        )
         [ div [ class "f3 mb2 white" ] [ text "人数" ]
         , div [ class "w-90-m w-70-l center ws-normal flex-auto" ]
             [ div
