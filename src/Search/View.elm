@@ -13,23 +13,17 @@ view model =
     div [ class "bg-blue w-100 vh-100 absolute top-0 left-0 fixed" ]
         [ i [ class "material-icons md-48 ml3 ml5-ns mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
         , div
-            [ class "db relative w-80 h-70-l center"
+            [ class "db relative w-80 center"
+            , style [ ( "height", "80%" ) ]
             ]
             [ searchFormView model
             , howManyPeopleView model
-            ]
-        , div
-            [ class "absolute bottom-2 db br4 bg-white-10 shadow-1 pointer center"
-            , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
-            , onClick (NextCondition <| model.searchConditionNumber + 1)
-            ]
-            [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ]
             ]
         ]
 
 
 inlineClass =
-    "w-100 h-70-l dib v-top center mv2 pa3 br3 ba bw2 b--white shadow-2 absolute"
+    "w-100 h-100 db center mv2 pa3 br3 ba bw2 b--white shadow-2 absolute"
 
 
 searchFormView : Model -> Html Msg
@@ -51,6 +45,15 @@ searchFormView model =
             []
         , ul [ class "list pa1 overflow-auto vh-50 bt bb b--white-50" ]
             (List.map searchResultList model.searchResult)
+        , div [ class "center absolute left-0 right-0 bottom-2" ]
+            [ div
+                [ class "db br4 bg-white-10 shadow-1 pointer center"
+                , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
+                , onClick (NextCondition <| model.searchConditionNumber + 1)
+                ]
+                [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ]
+                ]
+            ]
         ]
 
 
@@ -68,7 +71,7 @@ howManyPeopleView model =
     div
         (List.concat
             [ Animation.render model.searchConditionStyle.howManyPeopleView
-            , [ class inlineClass ]
+            , [ class (inlineClass ++ " bg-blue") ]
             ]
         )
         [ div [ class "f3 mb2 white" ] [ text "人数" ]
@@ -145,6 +148,23 @@ howManyPeopleView model =
                     ]
                     []
                 ]
+            ]
+        , div
+            [ class "center absolute left-0 right-0 bottom-2"
+            , style [ ( "width", "7rem" ), ( "height", "3rem" ) ]
+            ]
+            [ div
+                [ class "dib mh1 br4 bg-white-10 shadow-1 pointer"
+                , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
+                , onClick BeforeCondition
+                ]
+                [ i [ class "material-icons md-48 white" ] [ text "navigate_before" ] ]
+            , div
+                [ class "dib mh1 br4 bg-white-10 shadow-1 pointer"
+                , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
+                , onClick (NextCondition <| model.searchConditionNumber + 1)
+                ]
+                [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ] ]
             ]
         ]
 

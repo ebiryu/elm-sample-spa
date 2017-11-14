@@ -25,4 +25,5 @@ type Msg
     | SetNumOfAdult String
     | SetNumOfChild String
     | NextCondition Int
+    | BeforeCondition
     | Animate Animation.Msg

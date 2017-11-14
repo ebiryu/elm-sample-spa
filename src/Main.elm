@@ -93,7 +93,8 @@ update msg model =
             { model | places = response } ! []
 
         ToggleSearch ->
-            { model | toggleSearch = not model.toggleSearch } ! [ Task.attempt FocusOnInput (Dom.focus "search-place") ]
+            { model | toggleSearch = not model.toggleSearch, searchConditionStyle = Model.initStyleOfConditions }
+                ! [ Task.attempt FocusOnInput (Dom.focus "search-place") ]
 
         FocusOnInput id ->
             ( model, Cmd.none )
@@ -132,17 +133,20 @@ update msg model =
                 ! []
 
         NextCondition num ->
-            let
-                fadeOutObject =
-                    fadeOut model.searchConditionStyle.searchFormView
-
-                fadeInObject =
-                    fadeIn model.searchConditionStyle.howManyPeopleView
-            in
             ( { model
                 | searchConditionStyle =
-                    { searchFormView = fadeOutObject
-                    , howManyPeopleView = fadeInObject
+                    { searchFormView = fadeOut model.searchConditionStyle.searchFormView
+                    , howManyPeopleView = fadeIn model.searchConditionStyle.howManyPeopleView
+                    }
+              }
+            , Cmd.none
+            )
+
+        BeforeCondition ->
+            ( { model
+                | searchConditionStyle =
+                    { searchFormView = fadeIn model.searchConditionStyle.searchFormView
+                    , howManyPeopleView = fadeOut model.searchConditionStyle.howManyPeopleView
                     }
               }
             , Cmd.none
@@ -161,7 +165,7 @@ update msg model =
 fadeOut view =
     Animation.queue
         [ Animation.to
-            [ Animation.left (px -10.0)
+            [ Animation.left (px 0.0)
             , Animation.opacity 0.0
             ]
         ]
