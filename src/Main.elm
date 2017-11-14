@@ -40,7 +40,7 @@ init location =
     , selectedCityId = ""
     , cities = []
     , errMsg = ""
-    , numOfPeople = { adult = 0, child = 0 }
+    , numOfPeople = { adult = 1, child = 0 }
     , searchConditionNumber = 0
     , searchConditionStyle =
         Model.initStyleOfConditions
@@ -159,19 +159,18 @@ update msg model =
 
 
 fadeOut view =
-    Animation.interrupt [ Animation.wait (Time.second * 0.5) ] view
-        |> Animation.queue
-            [ Animation.to
-                [ Animation.left (px -10.0)
-                , Animation.opacity 0.0
-                ]
+    Animation.queue
+        [ Animation.to
+            [ Animation.left (px -10.0)
+            , Animation.opacity 0.0
             ]
+        ]
+        view
         |> Animation.queue [ Animation.set [ Animation.display Animation.none ] ]
 
 
 fadeIn view =
-    Animation.interrupt [ Animation.wait (Time.second * 0.5) ] view
-        |> Animation.queue [ Animation.set [ Animation.display Animation.block ] ]
+    Animation.queue [ Animation.set [ Animation.display Animation.block ] ] view
         |> Animation.queue
             [ Animation.to
                 [ Animation.left (px 0.0)

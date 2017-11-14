@@ -13,7 +13,7 @@ view model =
     div [ class "bg-blue w-100 vh-100 absolute top-0 left-0 fixed" ]
         [ i [ class "material-icons md-48 ml3 ml5-ns mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
         , div
-            [ class "db relative h-70-l"
+            [ class "db relative w-80 h-70-l center"
             ]
             [ searchFormView model
             , howManyPeopleView model
@@ -29,7 +29,7 @@ view model =
 
 
 inlineClass =
-    "w-90 w-90 w-70-l h-70-l dib v-top mh3 mv2 pa3 br3 ba bw2 b--white shadow-2 absolute"
+    "w-100 h-70-l dib v-top center mv2 pa3 br3 ba bw2 b--white shadow-2 absolute"
 
 
 searchFormView : Model -> Html Msg
@@ -37,7 +37,7 @@ searchFormView model =
     div
         (List.concat
             [ Animation.render model.searchConditionStyle.searchFormView
-            , [ class (inlineClass ++ " ml3 ml5-ns") ]
+            , [ class inlineClass ]
             ]
         )
         [ div [ class "f3 mb2 white" ] [ text "検索" ]
