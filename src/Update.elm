@@ -158,7 +158,7 @@ easing =
     let
         params =
             { duration = 0.2 * Time.second
-            , ease = Ease.outCubic
+            , ease = Ease.outQuart
             }
     in
     Animation.easing params
@@ -167,23 +167,18 @@ easing =
 fadeOutNext view =
     Animation.queue
         [ Animation.toWith easing
-            [ Animation.left (px 0.0)
-            , Animation.opacity 0.0
-            , Animation.width (Animation.percent 95)
-            , Animation.height (Animation.percent 95)
-            ]
+            [ Animation.translate (px 0.0) (px 0.0), Animation.opacity 0.0 ]
         ]
         view
         |> Animation.queue [ Animation.set [ Animation.display Animation.none ] ]
 
 
 fadeOutBefore view =
-    Animation.queue
-        [ Animation.toWith easing
-            [ Animation.left (px 30.0), Animation.opacity 0.0 ]
-        ]
-        view
-        |> Animation.queue [ Animation.set [ Animation.display Animation.none ] ]
+    Animation.queue [ Animation.set [ Animation.display Animation.none ] ] view
+        |> Animation.queue
+            [ Animation.toWith easing
+                [ Animation.translate (px 30.0) (px 0.0), Animation.opacity 0.0 ]
+            ]
 
 
 fadeIn view =
@@ -191,9 +186,7 @@ fadeIn view =
         |> Animation.queue [ Animation.set [ Animation.display Animation.block ] ]
         |> Animation.queue
             [ Animation.toWith easing
-                [ Animation.left (px 0.0)
+                [ Animation.translate (px 0.0) (px 0.0)
                 , Animation.opacity 1.0
-                , Animation.width (Animation.percent 100)
-                , Animation.height (Animation.percent 100)
                 ]
             ]

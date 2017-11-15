@@ -12,10 +12,10 @@ import Search.DatePicker
 view : Model -> Html Msg
 view model =
     div [ class "bg-blue w-100 vh-100 absolute top-0 left-0 fixed" ]
-        [ i [ class "material-icons md-48 ml3 ml5-ns mt5 white pointer", onClick ToggleSearch ] [ text "clear" ]
+        [ i [ class "material-icons md-48 ml3 ml5-ns mt-2 white pointer", onClick ToggleSearch ] [ text "clear" ]
         , div
             [ class "db relative w-80 center"
-            , style [ ( "height", "80%" ) ]
+            , style [ ( "height", "90%" ) ]
             ]
             [ searchFormView model
             , howManyPeopleView model
@@ -25,7 +25,7 @@ view model =
 
 
 inlineClass =
-    "h-100 db center ma-auto pa3 br3 ba bw2 b--white shadow-2 absolute top-0 right-0 bottom-0"
+    "h-100 db center ma-auto pa3 br3 ba bw2 b--white shadow-2 absolute top-0 left-0 right-0 bottom-0"
 
 
 searchFormView : Model -> Html Msg
@@ -37,24 +37,26 @@ searchFormView model =
             ]
         )
         [ div [ class "f3 mb2 white" ] [ text "検索" ]
-        , input
-            [ id "search-place"
-            , type_ "search"
-            , class "f6 f5-l input-reset bn pa3 br2 w-100 shadow-2"
-            , placeholder "場所を入力"
-            , value model.searchString
-            , onInput StartSearching
-            ]
-            []
-        , ul [ class "list pa1 overflow-auto vh-50 bt bb b--white-50" ]
-            (List.map searchResultList model.searchResult)
-        , div [ class "center absolute left-0 right-0 bottom-2" ]
-            [ div
-                [ class "db br4 bg-white-10 shadow-1 pointer center"
-                , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
-                , onClick NextCondition1
+        , div [ class "h-75" ]
+            [ input
+                [ id "search-place"
+                , type_ "search"
+                , class "f6 f5-l input-reset bn pa3 br2 w-100 shadow-2"
+                , placeholder "場所を入力"
+                , value model.searchString
+                , onInput StartSearching
                 ]
-                [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ]
+                []
+            , ul [ class "list pa1 overflow-auto h-100 bt bb b--white-50" ]
+                (List.map searchResultList model.searchResult)
+            , div [ class "center absolute left-0 right-0 bottom-1" ]
+                [ div
+                    [ class "db br4 bg-white-10 shadow-1 pointer center"
+                    , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
+                    , onClick NextCondition1
+                    ]
+                    [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ]
+                    ]
                 ]
             ]
         ]
@@ -78,8 +80,8 @@ howManyPeopleView model =
             ]
         )
         [ div [ class "f3 mb2 white" ] [ text "人数" ]
-        , div [ class "w-90-m w-70-l center ws-normal flex-auto" ]
-            [ div [ class "dib w-100 h4 ba br2 b--white tc ma2 shadow-2" ]
+        , div [ class "w-90-m w-70-l h-75 center ws-normal flex-auto overflow-auto" ]
+            [ div [ class "dib w-90 h4 ba br2 b--white tc ma2 shadow-2" ]
                 [ span [ class "h-75 db" ]
                     [ i [ class "material-icons md-72 white mt3 mb3 dib v-btm" ] [ text "person" ]
                     , i [ class "material-icons md-40 white mt3 mb4 dib v-btm" ] [ text "..." ]
@@ -168,7 +170,7 @@ howManyPeopleView model =
                 ]
             ]
         , div
-            [ class "center absolute left-0 right-0 bottom-2"
+            [ class "center absolute left-0 right-0 bottom-1"
             , style [ ( "width", "7rem" ), ( "height", "3rem" ) ]
             ]
             [ div
@@ -187,6 +189,10 @@ howManyPeopleView model =
         ]
 
 
+numOfPeopleButtonClass =
+    "dib w4 h4 ba br2 b--white tc ma1 hover-bg-white-20 pointer v-top shadow-2"
+
+
 datePickerView : Model -> Html Msg
 datePickerView model =
     div
@@ -195,9 +201,10 @@ datePickerView model =
             , [ class (inlineClass ++ " bg-blue") ]
             ]
         )
-        [ Search.DatePicker.view model
+        [ div [ class "f3 mb2 white" ] [ text "日時" ]
+        , Search.DatePicker.view model
         , div
-            [ class "center absolute left-0 right-0 bottom-2"
+            [ class "center absolute left-0 right-0 bottom-1"
             , style [ ( "width", "7rem" ), ( "height", "3rem" ) ]
             ]
             [ div
@@ -209,12 +216,7 @@ datePickerView model =
             , div
                 [ class "dib mh1 br4 bg-white-10 shadow-1 pointer"
                 , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
-                , onClick NextCondition2
                 ]
                 [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ] ]
             ]
         ]
-
-
-numOfPeopleButtonClass =
-    "dib w4 h4 ba br2 b--white tc ma2 hover-bg-white-20 pointer v-top shadow-2"
