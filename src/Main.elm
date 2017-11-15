@@ -3,6 +3,7 @@ module Main exposing (..)
 import Animation exposing (px)
 import Commands exposing (fetchPlaces)
 import Dom
+import Ease
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Navigation
@@ -135,7 +136,7 @@ update msg model =
         NextCondition num ->
             ( { model
                 | searchConditionStyle =
-                    { searchFormView = fadeOut model.searchConditionStyle.searchFormView
+                    { searchFormView = fadeOutNext model.searchConditionStyle.searchFormView
                     , howManyPeopleView = fadeIn model.searchConditionStyle.howManyPeopleView
                     }
               }
@@ -146,7 +147,7 @@ update msg model =
             ( { model
                 | searchConditionStyle =
                     { searchFormView = fadeIn model.searchConditionStyle.searchFormView
-                    , howManyPeopleView = fadeOut model.searchConditionStyle.howManyPeopleView
+                    , howManyPeopleView = fadeOutBefore model.searchConditionStyle.howManyPeopleView
                     }
               }
             , Cmd.none
@@ -162,23 +163,47 @@ update msg model =
                 ! []
 
 
-fadeOut view =
+easing =
+    let
+        params =
+            { duration = 0.2 * Time.second
+            , ease = Ease.outCubic
+            }
+    in
+    Animation.easing params
+
+
+fadeOutNext view =
     Animation.queue
-        [ Animation.to
+        [ Animation.toWith easing
             [ Animation.left (px 0.0)
             , Animation.opacity 0.0
+            , Animation.width (Animation.percent 95)
+            , Animation.height (Animation.percent 95)
             ]
         ]
         view
         |> Animation.queue [ Animation.set [ Animation.display Animation.none ] ]
 
 
+fadeOutBefore view =
+    Animation.queue
+        [ Animation.toWith easing
+            [ Animation.left (px 30.0), Animation.opacity 0.0 ]
+        ]
+        view
+        |> Animation.queue [ Animation.set [ Animation.display Animation.none ] ]
+
+
 fadeIn view =
-    Animation.queue [ Animation.set [ Animation.display Animation.block ] ] view
+    Animation.queue [ Animation.wait (Time.second * 0.1) ] view
+        |> Animation.queue [ Animation.set [ Animation.display Animation.block ] ]
         |> Animation.queue
-            [ Animation.to
+            [ Animation.toWith easing
                 [ Animation.left (px 0.0)
                 , Animation.opacity 1.0
+                , Animation.width (Animation.percent 100)
+                , Animation.height (Animation.percent 100)
                 ]
             ]
 

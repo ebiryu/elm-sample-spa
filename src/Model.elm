@@ -86,11 +86,15 @@ initStyleOfConditions =
         Animation.style
             [ Animation.left (px 0.0)
             , Animation.opacity 1.0
+            , Animation.width (Animation.percent 100)
+            , Animation.height (Animation.percent 100)
             ]
     , howManyPeopleView =
         Animation.style
-            [ Animation.left (px 10.0)
+            [ Animation.left (px 30.0)
             , Animation.opacity 0.0
             , Animation.display Animation.none
+            , Animation.width (Animation.percent 100)
+            , Animation.height (Animation.percent 100)
             ]
     }

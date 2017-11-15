@@ -23,7 +23,7 @@ view model =
 
 
 inlineClass =
-    "w-100 h-100 db center mv2 pa3 br3 ba bw2 b--white shadow-2 absolute"
+    "h-100 db center ma-auto pa3 br3 ba bw2 b--white shadow-2 absolute top-0 right-0 bottom-0"
 
 
 searchFormView : Model -> Html Msg
@@ -38,7 +38,7 @@ searchFormView model =
         , input
             [ id "search-place"
             , type_ "search"
-            , class "f6 f5-l input-reset bn pa3 br2 w-100"
+            , class "f6 f5-l input-reset bn pa3 br2 w-100 shadow-2"
             , placeholder "場所を入力"
             , onInput StartSearching
             ]
