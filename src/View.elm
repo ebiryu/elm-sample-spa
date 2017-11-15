@@ -91,8 +91,8 @@ homeView model =
         [ h1 [] [ text "History" ]
         , ul [] (List.map viewRoute (List.reverse model.history))
         , h1 [] [ text "Search" ]
-        , a
-            [ class "no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex items-center ma2 tc br2 pa2 pointer"
+        , div
+            [ class "button-reset near-white bg-near-black inline-flex items-center ma2 tc bn br2 pa2 pointer"
             , onClick ToggleSearch
             ]
             [ i [ class "material-icons dib h2 w2 md-36" ] [ text "search" ]

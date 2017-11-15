@@ -77,59 +77,7 @@ howManyPeopleView model =
         )
         [ div [ class "f3 mb2 white" ] [ text "人数" ]
         , div [ class "w-90-m w-70-l center ws-normal flex-auto" ]
-            [ div
-                [ class numOfPeopleButtonClass
-                , onClick (SelectNumOfPeople 1 0)
-                , classList [ ( "bg-white-20", (model.numOfPeople.adult == 1) && (model.numOfPeople.child == 0) ) ]
-                ]
-                [ span [ class "h-75 db" ]
-                    [ i [ class "material-icons md-66 white mt3 mb1 dib v-btm" ] [ text "person" ]
-                    ]
-                , span [ class "f5 white pb1" ] [ text "大人: 1" ]
-                ]
-            , div
-                [ class numOfPeopleButtonClass
-                , onClick (SelectNumOfPeople 0 1)
-                , classList [ ( "bg-white-20", (model.numOfPeople.adult == 0) && (model.numOfPeople.child == 1) ) ]
-                ]
-                [ span [ class "h-75 db" ]
-                    [ i [ class "material-icons md-40 white mt4 mb2 dib v-btm" ] [ text "person" ]
-                    ]
-                , span [ class "f5 white pb1" ] [ text "子供: 1" ]
-                ]
-            , div
-                [ class numOfPeopleButtonClass
-                , onClick (SelectNumOfPeople 2 0)
-                , classList [ ( "bg-white-20", (model.numOfPeople.adult == 2) && (model.numOfPeople.child == 0) ) ]
-                ]
-                [ span [ class "h-75 db" ]
-                    [ i [ class "material-icons md-66 white mt3 mb1 dib v-btm" ] [ text "people" ]
-                    ]
-                , span [ class "f5 white pb1" ] [ text "大人: 2" ]
-                ]
-            , div
-                [ class numOfPeopleButtonClass
-                , onClick (SelectNumOfPeople 2 1)
-                , classList [ ( "bg-white-20", (model.numOfPeople.adult == 2) && (model.numOfPeople.child == 1) ) ]
-                ]
-                [ span [ class "h-75 db" ]
-                    [ i [ class "material-icons md-72 white mt3 mb2 dib v-btm" ] [ text "people" ]
-                    , i [ class "material-icons md-40 white mt3 mb3 dib v-btm" ] [ text "person" ]
-                    ]
-                , span [ class "f5 white pb1" ] [ text "大人: 2, 子供: 1" ]
-                ]
-            , div
-                [ class numOfPeopleButtonClass
-                , onClick (SelectNumOfPeople 2 2)
-                , classList [ ( "bg-white-20", (model.numOfPeople.adult == 2) && (model.numOfPeople.child == 2) ) ]
-                ]
-                [ span [ class "h-75 db" ]
-                    [ i [ class "material-icons md-72 white mt3 mb2 dib v-btm" ] [ text "people" ]
-                    , i [ class "material-icons md-40 white mt3 mb3 dib v-btm" ] [ text "people" ]
-                    ]
-                , span [ class "f5 white pb1" ] [ text "大人: 2, 子供: 2" ]
-                ]
-            , div [ class "dib w-100 h4 ba br2 b--white tc ma2" ]
+            [ div [ class "dib w-100 h4 ba br2 b--white tc ma2 shadow-2" ]
                 [ span [ class "h-75 db" ]
                     [ i [ class "material-icons md-72 white mt3 mb3 dib v-btm" ] [ text "person" ]
                     , i [ class "material-icons md-40 white mt3 mb4 dib v-btm" ] [ text "..." ]
@@ -148,6 +96,73 @@ howManyPeopleView model =
                     , value (toString model.numOfPeople.child)
                     ]
                     []
+                ]
+            , button
+                [ class numOfPeopleButtonClass
+                , onClick (SelectNumOfPeople 1 0)
+                , classList
+                    [ ( "bg-white-20", (model.numOfPeople.adult == 1) && (model.numOfPeople.child == 0) )
+                    , ( "bg-blue", not ((model.numOfPeople.adult == 1) && (model.numOfPeople.child == 0)) )
+                    ]
+                ]
+                [ span [ class "h-75 db" ]
+                    [ i [ class "material-icons md-66 white mt3 mb1 dib v-btm" ] [ text "person" ]
+                    ]
+                , span [ class "f5 white pb1" ] [ text "大人: 1" ]
+                ]
+            , button
+                [ class numOfPeopleButtonClass
+                , onClick (SelectNumOfPeople 0 1)
+                , classList
+                    [ ( "bg-white-20", (model.numOfPeople.adult == 0) && (model.numOfPeople.child == 1) )
+                    , ( "bg-blue", not ((model.numOfPeople.adult == 0) && (model.numOfPeople.child == 1)) )
+                    ]
+                ]
+                [ span [ class "h-75 db" ]
+                    [ i [ class "material-icons md-40 white mt4 mb2 dib v-btm" ] [ text "person" ]
+                    ]
+                , span [ class "f5 white pb1" ] [ text "子供: 1" ]
+                ]
+            , button
+                [ class numOfPeopleButtonClass
+                , onClick (SelectNumOfPeople 2 0)
+                , classList
+                    [ ( "bg-white-20", (model.numOfPeople.adult == 2) && (model.numOfPeople.child == 0) )
+                    , ( "bg-blue", not ((model.numOfPeople.adult == 2) && (model.numOfPeople.child == 0)) )
+                    ]
+                ]
+                [ span [ class "h-75 db" ]
+                    [ i [ class "material-icons md-66 white mt3 mb1 dib v-btm" ] [ text "people" ]
+                    ]
+                , span [ class "f5 white pb1" ] [ text "大人: 2" ]
+                ]
+            , button
+                [ class numOfPeopleButtonClass
+                , onClick (SelectNumOfPeople 2 1)
+                , classList
+                    [ ( "bg-white-20", (model.numOfPeople.adult == 2) && (model.numOfPeople.child == 1) )
+                    , ( "bg-blue", not ((model.numOfPeople.adult == 2) && (model.numOfPeople.child == 1)) )
+                    ]
+                ]
+                [ span [ class "h-75 db" ]
+                    [ i [ class "material-icons md-72 white mt3 mb2 dib v-btm" ] [ text "people" ]
+                    , i [ class "material-icons md-40 white mt3 mb3 dib v-btm" ] [ text "person" ]
+                    ]
+                , span [ class "f5 white pb1" ] [ text "大人: 2, 子供: 1" ]
+                ]
+            , button
+                [ class numOfPeopleButtonClass
+                , onClick (SelectNumOfPeople 2 2)
+                , classList
+                    [ ( "bg-white-20", (model.numOfPeople.adult == 2) && (model.numOfPeople.child == 2) )
+                    , ( "bg-blue", not ((model.numOfPeople.adult == 2) && (model.numOfPeople.child == 2)) )
+                    ]
+                ]
+                [ span [ class "h-75 db" ]
+                    [ i [ class "material-icons md-72 white mt3 mb2 dib v-btm" ] [ text "people" ]
+                    , i [ class "material-icons md-40 white mt3 mb3 dib v-btm" ] [ text "people" ]
+                    ]
+                , span [ class "f5 white pb1" ] [ text "大人: 2, 子供: 2" ]
                 ]
             ]
         , div
@@ -171,4 +186,4 @@ howManyPeopleView model =
 
 
 numOfPeopleButtonClass =
-    "dib w4 h4 ba br2 b--white tc ma2 hover-bg-white-20 pointer"
+    "dib w4 h4 ba br2 b--white tc ma2 hover-bg-white-20 pointer v-top shadow-2"
