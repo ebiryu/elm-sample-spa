@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
+import Search.DatePicker
 
 
 view : Model -> Html Msg
@@ -18,6 +19,7 @@ view model =
             ]
             [ searchFormView model
             , howManyPeopleView model
+            , datePickerView model
             ]
         ]
 
@@ -50,7 +52,7 @@ searchFormView model =
             [ div
                 [ class "db br4 bg-white-10 shadow-1 pointer center"
                 , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
-                , onClick (NextCondition <| model.searchConditionNumber + 1)
+                , onClick NextCondition1
                 ]
                 [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ]
                 ]
@@ -172,13 +174,42 @@ howManyPeopleView model =
             [ div
                 [ class "dib mh1 br4 bg-white-10 shadow-1 pointer"
                 , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
-                , onClick BeforeCondition
+                , onClick BeforeCondition1
                 ]
                 [ i [ class "material-icons md-48 white" ] [ text "navigate_before" ] ]
             , div
                 [ class "dib mh1 br4 bg-white-10 shadow-1 pointer"
                 , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
-                , onClick (NextCondition <| model.searchConditionNumber + 1)
+                , onClick NextCondition2
+                ]
+                [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ] ]
+            ]
+        ]
+
+
+datePickerView : Model -> Html Msg
+datePickerView model =
+    div
+        (List.concat
+            [ Animation.render model.searchConditionStyle.datePickerView
+            , [ class (inlineClass ++ " bg-blue") ]
+            ]
+        )
+        [ Search.DatePicker.view model
+        , div
+            [ class "center absolute left-0 right-0 bottom-2"
+            , style [ ( "width", "7rem" ), ( "height", "3rem" ) ]
+            ]
+            [ div
+                [ class "dib mh1 br4 bg-white-10 shadow-1 pointer"
+                , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
+                , onClick BeforeCondition2
+                ]
+                [ i [ class "material-icons md-48 white" ] [ text "navigate_before" ] ]
+            , div
+                [ class "dib mh1 br4 bg-white-10 shadow-1 pointer"
+                , style [ ( "width", "3rem" ), ( "height", "3rem" ) ]
+                , onClick NextCondition2
                 ]
                 [ i [ class "material-icons md-48 white" ] [ text "navigate_next" ] ]
             ]

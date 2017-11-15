@@ -99,21 +99,45 @@ update msg model =
             }
                 ! []
 
-        NextCondition num ->
+        NextCondition1 ->
             ( { model
                 | searchConditionStyle =
                     { searchFormView = fadeOutNext model.searchConditionStyle.searchFormView
                     , howManyPeopleView = fadeIn model.searchConditionStyle.howManyPeopleView
+                    , datePickerView = model.searchConditionStyle.datePickerView
                     }
               }
             , Cmd.none
             )
 
-        BeforeCondition ->
+        BeforeCondition1 ->
             ( { model
                 | searchConditionStyle =
                     { searchFormView = fadeIn model.searchConditionStyle.searchFormView
                     , howManyPeopleView = fadeOutBefore model.searchConditionStyle.howManyPeopleView
+                    , datePickerView = model.searchConditionStyle.datePickerView
+                    }
+              }
+            , Cmd.none
+            )
+
+        NextCondition2 ->
+            ( { model
+                | searchConditionStyle =
+                    { searchFormView = model.searchConditionStyle.searchFormView
+                    , howManyPeopleView = fadeOutNext model.searchConditionStyle.howManyPeopleView
+                    , datePickerView = fadeIn model.searchConditionStyle.datePickerView
+                    }
+              }
+            , Cmd.none
+            )
+
+        BeforeCondition2 ->
+            ( { model
+                | searchConditionStyle =
+                    { searchFormView = model.searchConditionStyle.searchFormView
+                    , howManyPeopleView = fadeIn model.searchConditionStyle.howManyPeopleView
+                    , datePickerView = fadeOutBefore model.searchConditionStyle.datePickerView
                     }
               }
             , Cmd.none
@@ -124,6 +148,7 @@ update msg model =
                 | searchConditionStyle =
                     { searchFormView = Animation.update animMsg model.searchConditionStyle.searchFormView
                     , howManyPeopleView = Animation.update animMsg model.searchConditionStyle.howManyPeopleView
+                    , datePickerView = Animation.update animMsg model.searchConditionStyle.datePickerView
                     }
             }
                 ! []

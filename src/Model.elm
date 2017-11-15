@@ -79,6 +79,7 @@ type alias NumOfPeople =
 type alias StyleOfConditions =
     { searchFormView : Animation.State
     , howManyPeopleView : Animation.State
+    , datePickerView : Animation.State
     }
 
 
@@ -91,6 +92,14 @@ initStyleOfConditions =
             , Animation.height (Animation.percent 100)
             ]
     , howManyPeopleView =
+        Animation.style
+            [ Animation.left (px 30.0)
+            , Animation.opacity 0.0
+            , Animation.display Animation.none
+            , Animation.width (Animation.percent 100)
+            , Animation.height (Animation.percent 100)
+            ]
+    , datePickerView =
         Animation.style
             [ Animation.left (px 30.0)
             , Animation.opacity 0.0

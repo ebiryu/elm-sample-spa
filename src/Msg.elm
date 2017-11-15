@@ -24,6 +24,8 @@ type Msg
     | SelectNumOfPeople Int Int
     | SetNumOfAdult String
     | SetNumOfChild String
-    | NextCondition Int
-    | BeforeCondition
+    | NextCondition1
+    | BeforeCondition1
+    | NextCondition2
+    | BeforeCondition2
     | Animate Animation.Msg
