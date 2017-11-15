@@ -37,6 +37,7 @@ init location =
     , coordinate = Model.initLatLng
     , places = RemoteData.Loading
     , toggleSearch = False
+    , searchString = ""
     , searchResult = []
     , selectedCityId = ""
     , cities = []
@@ -101,7 +102,7 @@ update msg model =
             ( model, Cmd.none )
 
         StartSearching string ->
-            { model | searchResult = Search.runFilter2 string model.cities } ! []
+            { model | searchString = string, searchResult = Search.runFilter2 string model.cities } ! []
 
         SelectCityId id ->
             { model | selectedCityId = id } ! []

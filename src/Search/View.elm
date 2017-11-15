@@ -40,6 +40,7 @@ searchFormView model =
             , type_ "search"
             , class "f6 f5-l input-reset bn pa3 br2 w-100 shadow-2"
             , placeholder "場所を入力"
+            , value model.searchString
             , onInput StartSearching
             ]
             []
