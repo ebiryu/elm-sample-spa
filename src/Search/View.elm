@@ -80,7 +80,7 @@ howManyPeopleView model =
             ]
         )
         [ div [ class "f3 mb2 white" ] [ text "人数" ]
-        , div [ class "w-90-m w-70-l h-75 center ws-normal flex-auto overflow-auto" ]
+        , div [ class "w-90-m w-70-l h-75 center ws-normal flex-auto overflow-auto tc" ]
             [ div [ class "dib w-90 h4 ba br2 b--white tc ma2 shadow-2" ]
                 [ span [ class "h-75 db" ]
                     [ i [ class "material-icons md-72 white mt3 mb3 dib v-btm" ] [ text "person" ]
