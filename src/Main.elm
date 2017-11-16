@@ -2,10 +2,12 @@ module Main exposing (..)
 
 import Animation
 import Commands exposing (fetchPlaces)
+import Date
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Navigation
 import RemoteData
+import Task
 import Update exposing (update)
 import UrlParser as Url
 import View exposing (view)
@@ -39,11 +41,14 @@ init location =
     , cities = []
     , errMsg = ""
     , numOfPeople = { adult = 1, child = 0 }
+    , dateNow = ""
+    , dateCheckIn = ""
+    , dateCheckOut = ""
     , searchConditionNumber = 0
     , searchConditionStyle =
         Model.initStyleOfConditions
     }
-        ! [ fetchPlaces, Commands.fetchCityList ]
+        ! [ fetchPlaces, Commands.fetchCityList, Task.perform DateNow Date.now ]
 
 
 

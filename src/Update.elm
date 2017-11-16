@@ -99,6 +99,9 @@ update msg model =
             }
                 ! []
 
+        DateNow date ->
+            { model | dateNow = toString date } ! []
+
         NextCondition1 ->
             let
                 oldStyle =

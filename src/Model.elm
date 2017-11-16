@@ -1,6 +1,7 @@
 module Model exposing (..)
 
 import Animation exposing (px)
+import Date
 import Json.Encode exposing (Value)
 import RemoteData exposing (WebData)
 
@@ -18,6 +19,9 @@ type alias Model =
     , cities : List City
     , errMsg : String
     , numOfPeople : NumOfPeople
+    , dateNow : String
+    , dateCheckIn : String
+    , dateCheckOut : String
     , searchConditionNumber : Int
     , searchConditionStyle : StyleOfConditions
     }
