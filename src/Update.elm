@@ -157,7 +157,7 @@ update msg model =
 easing =
     let
         params =
-            { duration = 0.1 * Time.second
+            { duration = 0.15 * Time.second
             , ease = Ease.outQuart
             }
     in
