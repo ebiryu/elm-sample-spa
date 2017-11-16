@@ -55,4 +55,5 @@ subscriptions model =
     Animation.subscription Animate
         [ model.searchConditionStyle.searchFormView
         , model.searchConditionStyle.howManyPeopleView
+        , model.searchConditionStyle.datePickerView
         ]

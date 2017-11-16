@@ -91,13 +91,13 @@ initStyleOfConditions =
             ]
     , howManyPeopleView =
         Animation.style
-            [ Animation.translate (px 30.0) (px 0.0)
+            [ Animation.translate (px 50.0) (px 0.0)
             , Animation.opacity 0.0
             , Animation.display Animation.none
             ]
     , datePickerView =
         Animation.style
-            [ Animation.translate (px 30.0) (px 0.0)
+            [ Animation.translate (px 50.0) (px 0.0)
             , Animation.opacity 0.0
             , Animation.display Animation.none
             ]

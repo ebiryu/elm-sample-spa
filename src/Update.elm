@@ -157,7 +157,7 @@ update msg model =
 easing =
     let
         params =
-            { duration = 0.2 * Time.second
+            { duration = 0.1 * Time.second
             , ease = Ease.outQuart
             }
     in
@@ -174,11 +174,12 @@ fadeOutNext view =
 
 
 fadeOutBefore view =
-    Animation.queue [ Animation.set [ Animation.display Animation.none ] ] view
-        |> Animation.queue
-            [ Animation.toWith easing
-                [ Animation.translate (px 30.0) (px 0.0), Animation.opacity 0.0 ]
-            ]
+    Animation.queue
+        [ Animation.toWith easing
+            [ Animation.translate (px 50.0) (px 0.0), Animation.opacity 0.0 ]
+        ]
+        view
+        |> Animation.queue [ Animation.set [ Animation.display Animation.none ] ]
 
 
 fadeIn view =
