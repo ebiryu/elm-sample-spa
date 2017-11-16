@@ -112,7 +112,7 @@ howManyPeopleView model =
                 [ span [ class "h-75 db" ]
                     [ i [ class "material-icons md-66 white mt3 mb1 dib v-btm" ] [ text "person" ]
                     ]
-                , span [ class "f5 white pb1" ] [ text "大人: 1" ]
+                , span [ class "f6 white pb1" ] [ text "大人: 1" ]
                 ]
             , button
                 [ class numOfPeopleButtonClass
@@ -125,7 +125,7 @@ howManyPeopleView model =
                 [ span [ class "h-75 db" ]
                     [ i [ class "material-icons md-40 white mt4 mb2 dib v-btm" ] [ text "person" ]
                     ]
-                , span [ class "f5 white pb1" ] [ text "子供: 1" ]
+                , span [ class "f6 white pb1" ] [ text "子供: 1" ]
                 ]
             , button
                 [ class numOfPeopleButtonClass
@@ -138,7 +138,7 @@ howManyPeopleView model =
                 [ span [ class "h-75 db" ]
                     [ i [ class "material-icons md-66 white mt3 mb1 dib v-btm" ] [ text "people" ]
                     ]
-                , span [ class "f5 white pb1" ] [ text "大人: 2" ]
+                , span [ class "f6 white pb1" ] [ text "大人: 2" ]
                 ]
             , button
                 [ class numOfPeopleButtonClass
@@ -152,7 +152,7 @@ howManyPeopleView model =
                     [ i [ class "material-icons md-72 white mt3 mb2 dib v-btm" ] [ text "people" ]
                     , i [ class "material-icons md-40 white mt3 mb3 dib v-btm" ] [ text "person" ]
                     ]
-                , span [ class "f5 white pb1" ] [ text "大人: 2, 子供: 1" ]
+                , span [ class "f6 white pb1" ] [ text "大人: 2, 子供: 1" ]
                 ]
             , button
                 [ class numOfPeopleButtonClass
@@ -166,7 +166,7 @@ howManyPeopleView model =
                     [ i [ class "material-icons md-72 white mt3 mb2 dib v-btm" ] [ text "people" ]
                     , i [ class "material-icons md-40 white mt3 mb3 dib v-btm" ] [ text "people" ]
                     ]
-                , span [ class "f5 white pb1" ] [ text "大人: 2, 子供: 2" ]
+                , span [ class "f6 white pb1" ] [ text "大人: 2, 子供: 2" ]
                 ]
             ]
         , div
