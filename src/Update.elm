@@ -100,48 +100,56 @@ update msg model =
                 ! []
 
         NextCondition1 ->
-            ( { model
-                | searchConditionStyle =
-                    { searchFormView = fadeOutNext model.searchConditionStyle.searchFormView
-                    , howManyPeopleView = fadeIn model.searchConditionStyle.howManyPeopleView
-                    , datePickerView = model.searchConditionStyle.datePickerView
+            let
+                oldStyle =
+                    model.searchConditionStyle
+
+                newStyle =
+                    { oldStyle
+                        | searchFormView = fadeOutNext oldStyle.searchFormView
+                        , howManyPeopleView = fadeIn oldStyle.howManyPeopleView
                     }
-              }
-            , Cmd.none
-            )
+            in
+            ( { model | searchConditionStyle = newStyle }, Cmd.none )
 
         BeforeCondition1 ->
-            ( { model
-                | searchConditionStyle =
-                    { searchFormView = fadeIn model.searchConditionStyle.searchFormView
-                    , howManyPeopleView = fadeOutBefore model.searchConditionStyle.howManyPeopleView
-                    , datePickerView = model.searchConditionStyle.datePickerView
+            let
+                oldStyle =
+                    model.searchConditionStyle
+
+                newStyle =
+                    { oldStyle
+                        | searchFormView = fadeIn oldStyle.searchFormView
+                        , howManyPeopleView = fadeOutBefore oldStyle.howManyPeopleView
                     }
-              }
-            , Cmd.none
-            )
+            in
+            ( { model | searchConditionStyle = newStyle }, Cmd.none )
 
         NextCondition2 ->
-            ( { model
-                | searchConditionStyle =
-                    { searchFormView = model.searchConditionStyle.searchFormView
-                    , howManyPeopleView = fadeOutNext model.searchConditionStyle.howManyPeopleView
-                    , datePickerView = fadeIn model.searchConditionStyle.datePickerView
+            let
+                oldStyle =
+                    model.searchConditionStyle
+
+                newStyle =
+                    { oldStyle
+                        | howManyPeopleView = fadeOutNext oldStyle.howManyPeopleView
+                        , datePickerView = fadeIn oldStyle.datePickerView
                     }
-              }
-            , Cmd.none
-            )
+            in
+            ( { model | searchConditionStyle = newStyle }, Cmd.none )
 
         BeforeCondition2 ->
-            ( { model
-                | searchConditionStyle =
-                    { searchFormView = model.searchConditionStyle.searchFormView
-                    , howManyPeopleView = fadeIn model.searchConditionStyle.howManyPeopleView
-                    , datePickerView = fadeOutBefore model.searchConditionStyle.datePickerView
+            let
+                oldStyle =
+                    model.searchConditionStyle
+
+                newStyle =
+                    { oldStyle
+                        | howManyPeopleView = fadeIn oldStyle.howManyPeopleView
+                        , datePickerView = fadeOutBefore oldStyle.datePickerView
                     }
-              }
-            , Cmd.none
-            )
+            in
+            ( { model | searchConditionStyle = newStyle }, Cmd.none )
 
         Animate animMsg ->
             { model
