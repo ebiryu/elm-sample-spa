@@ -15,11 +15,11 @@ view model =
         [ div [ class "tc" ]
             [ div [ class "dib w5 f6 f5-l white pa2 ba br2 b--white ma1 hover-bg-white-20 pointer" ]
                 [ text "チェックイン: "
-                , text model.dateCheckIn
+                , text (toString model.dateCheckIn)
                 ]
             , div [ class "dib w5 f6 f5-l white pa2 ba br2 b--white ma1 hover-bg-white-20 pointer" ]
                 [ text "チェックアウト: "
-                , text model.dateCheckOut
+                , text (toString model.dateCheckOut)
                 ]
             , datePicker model
             ]
@@ -29,19 +29,19 @@ view model =
 datePicker model =
     div [ class "absolute absolute--fill bg-black-10 z2" ]
         [ div [ class "absolute absolute--fill ma-auto mw6 h5 bg-white-10" ]
-            [ header
+            [ header model.dateCheckIn
             , picker
             ]
         ]
 
 
-header =
+header date =
     div [ class "db bg-light-blue w-100 h-25" ]
         [ text <|
             Result.withDefault "Failed to get a date." <|
                 Result.map
                     (DateFormat.format config config.format.dateTime)
-                    (Date.fromString "2015-06-01 12:45:14.211Z")
+                    (Date.fromString <| toString date)
         ]
 
 

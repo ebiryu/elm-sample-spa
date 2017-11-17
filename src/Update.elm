@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Animation exposing (px)
 import Commands
+import Date.Extra.Duration as Duration
 import Dom
 import Ease
 import Model exposing (Model, Route(..))
@@ -100,7 +101,7 @@ update msg model =
                 ! []
 
         DateNow date ->
-            { model | dateNow = toString date } ! []
+            { model | dateCheckIn = date, dateCheckOut = Duration.add Duration.Day 1 date } ! []
 
         NextCondition1 ->
             let

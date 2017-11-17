@@ -3,6 +3,7 @@ module Main exposing (..)
 import Animation
 import Commands exposing (fetchPlaces)
 import Date
+import Date.Extra.Create exposing (dateFromFields)
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Navigation
@@ -41,9 +42,8 @@ init location =
     , cities = []
     , errMsg = ""
     , numOfPeople = { adult = 1, child = 0 }
-    , dateNow = ""
-    , dateCheckIn = ""
-    , dateCheckOut = ""
+    , dateCheckIn = dateFromFields 2017 Date.Nov 8 0 0 0 0
+    , dateCheckOut = dateFromFields 2017 Date.Nov 9 0 0 0 0
     , searchConditionNumber = 0
     , searchConditionStyle =
         Model.initStyleOfConditions
