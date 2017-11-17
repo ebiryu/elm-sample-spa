@@ -8,6 +8,7 @@ import Json.Encode exposing (Value)
 import Model exposing (Place)
 import Navigation
 import RemoteData exposing (WebData)
+import Search.DatePickerUpdate as DatePicker
 
 
 type Msg
@@ -26,6 +27,7 @@ type Msg
     | SetNumOfAdult String
     | SetNumOfChild String
     | DateNow Date.Date
+    | DatePickerMsg DatePicker.Msg DatePicker.Check
     | NextCondition1
     | BeforeCondition1
     | NextCondition2

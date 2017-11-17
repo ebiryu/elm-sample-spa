@@ -10,6 +10,7 @@ import Msg exposing (Msg(..))
 import Navigation
 import RemoteData
 import Search
+import Search.DatePickerUpdate as DatePicker
 import Task
 import Time
 import UrlParser as Url
@@ -101,7 +102,10 @@ update msg model =
                 ! []
 
         DateNow date ->
-            { model | dateCheckIn = date, dateCheckOut = Duration.add Duration.Day 1 date } ! []
+            { model | dateNow = date, dateCheckIn = date, dateCheckOut = Duration.add Duration.Day 1 date } ! []
+
+        DatePickerMsg msg check ->
+            ( { model | datePickerModel = DatePicker.update msg model.datePickerModel }, Cmd.none )
 
         NextCondition1 ->
             let

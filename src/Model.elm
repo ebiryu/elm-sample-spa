@@ -4,6 +4,7 @@ import Animation exposing (px)
 import Date exposing (Date)
 import Json.Encode exposing (Value)
 import RemoteData exposing (WebData)
+import Search.DatePickerUpdate as DatePicker
 
 
 type alias Model =
@@ -19,8 +20,11 @@ type alias Model =
     , cities : List City
     , errMsg : String
     , numOfPeople : NumOfPeople
+    , dateNow : Date
     , dateCheckIn : Date
     , dateCheckOut : Date
+    , datePickerModel : DatePicker.Model
+    , datePickerShow : Bool
     , searchConditionNumber : Int
     , searchConditionStyle : StyleOfConditions
     }

@@ -8,6 +8,7 @@ import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Navigation
 import RemoteData
+import Search.DatePickerUpdate as DatePicker
 import Task
 import Update exposing (update)
 import UrlParser as Url
@@ -42,8 +43,11 @@ init location =
     , cities = []
     , errMsg = ""
     , numOfPeople = { adult = 1, child = 0 }
+    , dateNow = dateFromFields 2017 Date.Nov 8 0 0 0 0
     , dateCheckIn = dateFromFields 2017 Date.Nov 8 0 0 0 0
     , dateCheckOut = dateFromFields 2017 Date.Nov 9 0 0 0 0
+    , datePickerModel = DatePicker.initDatePicker
+    , datePickerShow = False
     , searchConditionNumber = 0
     , searchConditionStyle =
         Model.initStyleOfConditions

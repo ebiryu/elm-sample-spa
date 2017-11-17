@@ -21,6 +21,12 @@ view model =
             , howManyPeopleView model
             , datePickerView model
             ]
+
+        -- , if model.datePickerShow then
+        , Search.DatePicker.view model.datePickerModel
+
+        -- else
+        -- text ""
         ]
 
 
@@ -202,7 +208,19 @@ datePickerView model =
             ]
         )
         [ div [ class "f3 mb2 white" ] [ text "日時" ]
-        , Search.DatePicker.view model
+        , div
+            [ class "w-100 h-75 center" ]
+            [ div [ class "tc" ]
+                [ div [ class "dib w5 f6 f5-l white pa2 ba br2 b--white ma1 hover-bg-white-20 pointer" ]
+                    [ text "チェックイン: "
+                    , text (toString model.dateCheckIn)
+                    ]
+                , div [ class "dib w5 f6 f5-l white pa2 ba br2 b--white ma1 hover-bg-white-20 pointer" ]
+                    [ text "チェックアウト: "
+                    , text (toString model.dateCheckOut)
+                    ]
+                ]
+            ]
         , div
             [ class "center absolute left-0 right-0 bottom-1"
             , style [ ( "width", "7rem" ), ( "height", "3rem" ) ]
