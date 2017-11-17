@@ -46,4 +46,11 @@ header =
 
 
 picker =
-    div [ class "db bg-white w-100 h-75" ] []
+    div [ class "db bg-near-white w-100 h-75" ]
+        [ div [ class "flex justify-between" ]
+            [ button [ class "pointer outline-0" ]
+                [ i [ class "material-icons md-24 near-black" ] [ text "navigate_before" ] ]
+            , button [ class "pointer outline-0" ]
+                [ i [ class "material-icons md-24 near-black" ] [ text "navigate_next" ] ]
+            ]
+        ]
