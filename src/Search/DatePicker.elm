@@ -15,7 +15,13 @@ import Search.DatePickerUpdate exposing (Model, Msg(..))
 
 view model =
     div [ class "absolute absolute--fill bg-black-50 z2" ]
-        [ div [ class "absolute absolute--fill ma-auto mw6 h5 bg-white-10" ]
+        [ div
+            [ class "absolute absolute--fill ma-auto bg-white-10 shadow-2"
+            , style
+                [ ( "height", "26rem" )
+                , ( "width", "20rem" )
+                ]
+            ]
             [ header model
             , picker model
             ]
@@ -23,12 +29,13 @@ view model =
 
 
 header model =
-    div [ class "db bg-light-blue w-100 h-25" ]
-        [ text <|
-            Result.withDefault "Failed to get a date." <|
-                Result.map
-                    (DateFormat.format config config.format.dateTime)
-                    (Date.fromString <| toString model.date)
+    div
+        [ class "db bg-navy w-100"
+        , style [ ( "height", "6rem" ) ]
+        ]
+        [ div [ class "db pt3 ml3 gray" ]
+            [ text <| toString <| Date.year model.date ]
+        , div [ class "db ml3 f2 near-white" ] [ text (DateFormat.format config "%b/%-d (%a)" model.date) ]
         ]
 
 
@@ -41,9 +48,12 @@ picker model =
         check =
             model.check
     in
-    div [ class "db bg-near-white w-100 h-75" ]
-        [ div [ class "flex justify-between" ]
-            [ button [ class "pointer outline-0", onClick (DatePickerMsg PrevMonth check) ]
+    div
+        [ class "db bg-near-white w-100"
+        , style [ ( "height", "20rem" ) ]
+        ]
+        [ div [ class "flex justify-between mh3 pa3" ]
+            [ button [ class "pointer outline-0 bg-near-white", onClick (DatePickerMsg PrevMonth check) ]
                 [ i [ class "material-icons md-24 near-black" ] [ text "navigate_before" ] ]
             , div [ class "flex items-center" ]
                 [ Date.year date
@@ -54,7 +64,7 @@ picker model =
                     |> config.i18n.monthName
                     |> text
                 ]
-            , button [ class "pointer outline-0", onClick (DatePickerMsg NextMonth check) ]
+            , button [ class "pointer outline-0 bg-near-white", onClick (DatePickerMsg NextMonth check) ]
                 [ i [ class "material-icons md-24 near-black" ] [ text "navigate_next" ] ]
             ]
         , weekDays
@@ -68,7 +78,7 @@ weekDays =
         days =
             List.map (\day -> span [ style [ ( "width", "14%" ) ] ] [ text day ]) [ "日", "月", "火", "水", "木", "金", "土" ]
     in
-    div [ class "flex justify-between tc" ] days
+    div [ class "f6 flex justify-between tc mh2 pb2 gray" ] days
 
 
 monthDays : Model -> Html Msg.Msg
@@ -82,6 +92,7 @@ monthDays model =
                 |> toFirstOfMonth
                 |> Date.dayOfWeek
                 |> isoDayOfWeek
+                |> (%) 7
 
         rightPadding =
             42 - leftPadding - daysCount
@@ -105,12 +116,12 @@ chunks a xs =
 
 weekRow : Int -> List Int -> Html Msg.Msg
 weekRow currentDay days =
-    div [ class "flex justify-between tc" ] (List.map (dayCell currentDay) days)
+    div [ class "flex justify-between tc mh2" ] (List.map (dayCell currentDay) days)
 
 
 dayCell : Int -> Int -> Html Msg.Msg
 dayCell currentDay day =
     if day > 0 then
-        div [ style [ ( "width", "14%" ) ] ] [ div [] [ text (toString day) ] ]
+        div [ class "f6 pv2 navy", style [ ( "width", "14%" ) ] ] [ div [] [ text (toString day) ] ]
     else
-        div [ style [ ( "width", "14%" ) ] ] [ div [] [ text "" ] ]
+        div [ class "pv2", style [ ( "width", "14%" ) ] ] [ div [] [ text "" ] ]
