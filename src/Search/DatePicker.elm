@@ -1,8 +1,10 @@
 module Search.DatePicker exposing (..)
 
 import Date exposing (Date)
+import Date.Extra.Compare as Compare exposing (is)
 import Date.Extra.Config.Config_ja_jp exposing (config)
 import Date.Extra.Core exposing (daysInMonth, intToMonth, isoDayOfWeek, toFirstOfMonth)
+import Date.Extra.Create exposing (dateFromFields)
 import Date.Extra.Duration as Duration
 import Date.Extra.Format as DateFormat
 import Html exposing (..)
@@ -40,7 +42,7 @@ header model =
 
                 CheckOut ->
                     [ text "チェックアウト" ]
-        , div [ class "db ml3 gray" ]
+        , div [ class "db ml3 silver" ]
             [ text <| toString <| Date.year model.date ]
         , div [ class "db ml3 f2 near-white" ] [ text (DateFormat.format config "%b/%-d (%a)" model.date) ]
         ]
@@ -107,8 +109,17 @@ monthDays model =
         weeks =
             chunks 7 (List.repeat leftPadding 0 ++ List.range 1 daysCount ++ List.repeat rightPadding 0)
 
+        zeroOrNot day =
+            if day == 0 then
+                dateFromFields 2000 Date.Jan 1 0 0 0 0
+            else
+                dateFromFields (Date.year model.date) (Date.month model.date) day 23 59 59 0
+
+        dateWeeks =
+            List.map (\d -> List.map zeroOrNot d) weeks
+
         rows =
-            List.map (\week -> weekRow model.check (Date.day model.date) week) weeks
+            List.map (\week -> weekRow model.check model.dateNow (Date.day model.date) week) dateWeeks
     in
     div [] rows
 
@@ -121,21 +132,31 @@ chunks a xs =
         [ xs ]
 
 
-weekRow : Check -> Int -> List Int -> Html Msg.Msg
-weekRow check currentDay days =
-    div [ class "flex justify-between tc mb1 mh2" ] (List.map (dayCell check currentDay) days)
+weekRow : Check -> Date -> Int -> List Date -> Html Msg.Msg
+weekRow check dateNow selectedDay days =
+    div [ class "flex justify-between tc mb1 mh2" ] (List.map (dayCell check dateNow selectedDay) days)
 
 
-dayCell : Check -> Int -> Int -> Html Msg.Msg
-dayCell check currentDay day =
-    if day > 0 then
-        div
-            [ class "f6 pointer flex justify-center items-center hover-bg-black-10"
-            , style [ ( "width", "40px" ), ( "height", "40px" ), ( "border-radius", "100%" ) ]
-            , classList [ ( "bg-navy hover-bg-navy white", currentDay == day ) ]
-            , onClick (DatePickerMsg (ClickDay day) check)
-            ]
-            [ div [ class "flex justify-center items-center" ] [ text (toString day) ] ]
-    else
+dayCell : Check -> Date -> Int -> Date -> Html Msg.Msg
+dayCell check dateNow selectedDay day =
+    if is Compare.Same day (dateFromFields 2000 Date.Jan 1 0 0 0 0) then
         div [ class "pv2", style [ ( "width", "40px" ) ] ]
             [ div [] [ text "" ] ]
+    else
+        div
+            (List.append
+                [ style [ ( "width", "40px" ), ( "height", "40px" ), ( "border-radius", "100%" ) ]
+                , classList
+                    [ ( "bg-navy hover-bg-navy white", selectedDay == Date.day day )
+                    , ( "pointer hover-bg-black-10", is Compare.SameOrAfter day dateNow )
+                    ]
+                ]
+             <|
+                if is Compare.SameOrAfter day dateNow then
+                    [ onClick (DatePickerMsg (ClickDay (Date.day day)) check)
+                    , class "f6 flex justify-center items-center pointer hover-bg-black-10"
+                    ]
+                else
+                    [ class "f6 silver flex justify-center items-center" ]
+            )
+            [ div [ class "flex justify-center items-center" ] [ text (toString (Date.day day)) ] ]
