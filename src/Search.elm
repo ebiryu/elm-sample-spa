@@ -39,5 +39,5 @@ filtering string places =
 
 filtering2 : String -> List City -> List ( Model.CityId, String )
 filtering2 string cities =
-    List.map (\p -> ( p.geonameid, p.name )) cities
+    List.map (\p -> ( p.id, p.city )) cities
         |> List.filter (\( _, p ) -> String.contains string p)

@@ -66,10 +66,11 @@ type Route
 
 
 type alias City =
-    { name : String
-    , country : String
-    , subcountry : String
-    , geonameid : CityId
+    { id : CityId
+    , prefecture : String
+    , city : String
+    , prefecture_kana : String
+    , city_kana : String
     }
 
 

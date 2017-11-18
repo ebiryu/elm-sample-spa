@@ -39,7 +39,7 @@ placeDecoder =
 fetchCityList : Cmd Msg
 fetchCityList =
     Http.send Msg.GetCityList <|
-        Http.getString "http://localhost:3000/cities-in-japan.csv"
+        Http.getString "http://localhost:3000/fromGov.csv"
 
 
 runCsvDecoder : String -> List City
@@ -51,7 +51,8 @@ runCsvDecoder string =
 csvDecoder : Csv.Decoder City
 csvDecoder =
     Csv.succeed City
-        |= Csv.field "name"
-        |= Csv.field "country"
-        |= Csv.field "subcountry"
-        |= Csv.field "geonameid"
+        |= Csv.field "id"
+        |= Csv.field "prefecture"
+        |= Csv.string (Csv.field "city")
+        |= Csv.field "prefecture_kana"
+        |= Csv.string (Csv.field "city_kana")
