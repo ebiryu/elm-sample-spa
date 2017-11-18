@@ -28,6 +28,7 @@ type Msg
     | SetNumOfChild String
     | DateNow Date.Date
     | DatePickerMsg DatePicker.Msg DatePicker.Check
+    | ToggleDatePicker DatePicker.Check
     | NextCondition1
     | BeforeCondition1
     | NextCondition2

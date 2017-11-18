@@ -7,6 +7,7 @@ import Html.Events exposing (..)
 import Model exposing (Model, Route(..))
 import Msg exposing (Msg(..))
 import Search.DatePicker
+import Search.DatePickerUpdate exposing (Check(..))
 
 
 view : Model -> Html Msg
@@ -21,12 +22,10 @@ view model =
             , howManyPeopleView model
             , datePickerView model
             ]
-
-        -- , if model.datePickerShow then
-        , Search.DatePicker.view model.datePickerModel
-
-        -- else
-        -- text ""
+        , if model.datePickerShow then
+            Search.DatePicker.view model.datePickerModel
+          else
+            text ""
         ]
 
 
@@ -211,11 +210,17 @@ datePickerView model =
         , div
             [ class "w-100 h-75 center" ]
             [ div [ class "tc" ]
-                [ div [ class "dib w5 f6 f5-l white pa2 ba br2 b--white ma1 hover-bg-white-20 pointer" ]
+                [ div
+                    [ class "dib w5 f6 f5-l white pa2 ba br2 b--white ma1 hover-bg-white-20 pointer"
+                    , onClick (ToggleDatePicker CheckIn)
+                    ]
                     [ text "チェックイン: "
                     , text (toString model.dateCheckIn)
                     ]
-                , div [ class "dib w5 f6 f5-l white pa2 ba br2 b--white ma1 hover-bg-white-20 pointer" ]
+                , div
+                    [ class "dib w5 f6 f5-l white pa2 ba br2 b--white ma1 hover-bg-white-20 pointer"
+                    , onClick (ToggleDatePicker CheckOut)
+                    ]
                     [ text "チェックアウト: "
                     , text (toString model.dateCheckOut)
                     ]

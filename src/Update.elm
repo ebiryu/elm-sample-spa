@@ -102,10 +102,45 @@ update msg model =
                 ! []
 
         DateNow date ->
-            { model | dateNow = date, dateCheckIn = date, dateCheckOut = Duration.add Duration.Day 1 date } ! []
+            { model
+                | dateNow = date
+                , dateCheckIn = date
+                , dateCheckOut = Duration.add Duration.Day 1 date
+                , datePickerModel = DatePicker.initDatePicker date
+            }
+                ! []
 
         DatePickerMsg msg check ->
-            ( { model | datePickerModel = DatePicker.update msg model.datePickerModel }, Cmd.none )
+            let
+                newDate =
+                    DatePicker.update msg model.datePickerModel
+            in
+            case msg of
+                DatePicker.ClickDay int ->
+                    case check of
+                        DatePicker.CheckIn ->
+                            update (ToggleDatePicker model.datePickerModel.check) { model | datePickerModel = newDate, dateCheckIn = newDate.date }
+
+                        DatePicker.CheckOut ->
+                            update (ToggleDatePicker model.datePickerModel.check) { model | datePickerModel = newDate, dateCheckOut = newDate.date }
+
+                _ ->
+                    ( { model | datePickerModel = newDate }, Cmd.none )
+
+        ToggleDatePicker check ->
+            let
+                oldModel =
+                    model.datePickerModel
+
+                newModel =
+                    case check of
+                        DatePicker.CheckIn ->
+                            { oldModel | date = model.dateCheckIn, check = check }
+
+                        DatePicker.CheckOut ->
+                            { oldModel | date = model.dateCheckOut, check = check }
+            in
+            { model | datePickerShow = not model.datePickerShow, datePickerModel = newModel } ! []
 
         NextCondition1 ->
             let
