@@ -9,7 +9,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import Msg exposing (Msg(..))
-import Search.DatePickerUpdate exposing (Check, Model, Msg(..))
+import Search.DatePickerUpdate exposing (Check(..), Model, Msg(..))
 
 
 view model =
@@ -33,7 +33,14 @@ header model =
         [ class "db bg-navy w-100"
         , style [ ( "height", "6rem" ) ]
         ]
-        [ div [ class "db pt3 ml3 gray" ]
+        [ div [ class "db ml3 pv2 light-gray" ] <|
+            case model.check of
+                CheckIn ->
+                    [ text "チェックイン" ]
+
+                CheckOut ->
+                    [ text "チェックアウト" ]
+        , div [ class "db ml3 gray" ]
             [ text <| toString <| Date.year model.date ]
         , div [ class "db ml3 f2 near-white" ] [ text (DateFormat.format config "%b/%-d (%a)" model.date) ]
         ]
