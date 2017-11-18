@@ -4,22 +4,22 @@ import Date exposing (Date)
 import Date.Extra.Config.Config_ja_jp exposing (config)
 import Date.Extra.Core exposing (daysInMonth, intToMonth, isoDayOfWeek, toFirstOfMonth)
 import Date.Extra.Duration as Duration
-import Date.Extra.Field as Field
 import Date.Extra.Format as DateFormat
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import Msg exposing (Msg(..))
-import Search.DatePickerUpdate exposing (Model, Msg(..))
+import Search.DatePickerUpdate exposing (Check, Model, Msg(..))
 
 
 view model =
     div [ class "absolute absolute--fill bg-black-50 z2" ]
-        [ div
+        [ div [ class "absolute absolute--fill", onClick (ToggleDatePicker model.check) ] []
+        , div
             [ class "absolute absolute--fill ma-auto bg-white-10 shadow-2"
             , style
-                [ ( "height", "26rem" )
-                , ( "width", "20rem" )
+                [ ( "height", "27rem" )
+                , ( "width", "21rem" )
                 ]
             ]
             [ header model
@@ -50,9 +50,9 @@ picker model =
     in
     div
         [ class "db bg-near-white w-100"
-        , style [ ( "height", "20rem" ) ]
+        , style [ ( "height", "21rem" ) ]
         ]
-        [ div [ class "flex justify-between mh3 pa3" ]
+        [ div [ class "flex justify-between mh3 pa1" ]
             [ button [ class "pointer outline-0 bg-near-white", onClick (DatePickerMsg PrevMonth check) ]
                 [ i [ class "material-icons md-24 near-black" ] [ text "navigate_before" ] ]
             , div [ class "flex items-center" ]
@@ -92,7 +92,7 @@ monthDays model =
                 |> toFirstOfMonth
                 |> Date.dayOfWeek
                 |> isoDayOfWeek
-                |> (%) 7
+                |> (\n -> (n + 1) % 7)
 
         rightPadding =
             42 - leftPadding - daysCount
@@ -101,7 +101,7 @@ monthDays model =
             chunks 7 (List.repeat leftPadding 0 ++ List.range 1 daysCount ++ List.repeat rightPadding 0)
 
         rows =
-            List.map (\week -> weekRow (Date.day model.date) week) weeks
+            List.map (\week -> weekRow model.check (Date.day model.date) week) weeks
     in
     div [] rows
 
@@ -114,14 +114,21 @@ chunks a xs =
         [ xs ]
 
 
-weekRow : Int -> List Int -> Html Msg.Msg
-weekRow currentDay days =
-    div [ class "flex justify-between tc mh2" ] (List.map (dayCell currentDay) days)
+weekRow : Check -> Int -> List Int -> Html Msg.Msg
+weekRow check currentDay days =
+    div [ class "flex justify-between tc mb1 mh2" ] (List.map (dayCell check currentDay) days)
 
 
-dayCell : Int -> Int -> Html Msg.Msg
-dayCell currentDay day =
+dayCell : Check -> Int -> Int -> Html Msg.Msg
+dayCell check currentDay day =
     if day > 0 then
-        div [ class "f6 pv2 navy", style [ ( "width", "14%" ) ] ] [ div [] [ text (toString day) ] ]
+        div
+            [ class "f6 pointer flex justify-center items-center hover-bg-black-10"
+            , style [ ( "width", "40px" ), ( "height", "40px" ), ( "border-radius", "100%" ) ]
+            , classList [ ( "bg-navy hover-bg-navy white", currentDay == day ) ]
+            , onClick (DatePickerMsg (ClickDay day) check)
+            ]
+            [ div [ class "flex justify-center items-center" ] [ text (toString day) ] ]
     else
-        div [ class "pv2", style [ ( "width", "14%" ) ] ] [ div [] [ text "" ] ]
+        div [ class "pv2", style [ ( "width", "40px" ) ] ]
+            [ div [] [ text "" ] ]
